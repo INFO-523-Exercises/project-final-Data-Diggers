@@ -12,6 +12,6 @@ This project was developed by **\[Team Name\]** For [INFO 523 - Data Mining and 
 
 -   Team member 3: Ram Dheeraj Kamarajugadda: First Year Graduate Student pursuing Masters in Data Science at University of Arizona.
 
--   Team member 4: Abhishek Deore:  I am a First Year Graduate student pursuing Masters in Data Science at the University of Arizona.
+-   Team member 4: Abhishek Deore: First Year Graduate student pursuing Masters Degree with majors in Data Science at the University of Arizona.
 
 -   Team member 5: Kashyap Nadendla: First Year Graduate Student pursuing Masters in Data Science at University of Arizona.
