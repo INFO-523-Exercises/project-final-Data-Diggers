@@ -23,47 +23,53 @@ pacman::p_load(here,dplyr)
 brain_stroke <- read.csv(here("data","brain_stroke.csv"))
 ```
 
-The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets.
+The central objective of this project is to evaluate the accuracy of various prediction models, shedding light on their effectiveness in early stroke detection, which could significantly impact patient outcomes and healthcare resource allocation.
 
-The central objective of this project is to develop an advanced machine-learning model for stroke prediction using the "Brain Stroke Data set," which consists of 4982 rows and 11 columns. This dataset provides a substantial pool of patient records and attributes for analysis. Our motivation for this project is rooted in the pressing need to enhance early stroke detection and risk assessment, two critical factors directly impacting patient care and stroke prevention strategies.
+The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets and consists of 4982 rows and 11 columns. This dataset provides a substantial pool of patient records and attributes for analysis. Our motivation for this project is rooted in the pressing need to enhance early stroke detection and risk assessment, two critical factors directly impacting patient care and stroke prevention strategies.
 
-We selected the "Brain Stroke Data set" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to construct a robust predictive model that can identify individuals at higher risk of stroke, ultimately enabling timely interventions and tailored preventive measures.
+We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to construct a robust predictive model that can identify individuals at higher risk of stroke, ultimately enabling timely interventions and tailored preventive measures.
 
 ## **Attribute Information**
 
-1) gender: "Male", "Female" or "Other"
-2) age: age of the patient
-3) hypertension: 0 if the patient doesn't have hypertension, 1 if the patient has hypertension
-4) heart disease: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease 
-5) Ever-married: "No" or "Yes"
-6) work type: "children", "Govtjov", "Never worked", "Private" or "Self-employed" 
-7) Residencetype: "Rural" or "Urban"
-8) avg glucose level: average glucose level in blood
-9) BMI: body mass index
-10) smoking_status: "formerly smoked", "never smoked", "smokes" or "Unknown"*
-11) stroke: 1 if the patient had a stroke or 0 if not
+1)  `gender`: "Male", "Female" or "Other"
+2)  `age`: Age of the patient
+3)  `hypertension`: 0 if the patient doesn't have hypertension, 1 if the patient has hypertension
+4)  `heart disease`: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease 5) Ever-married: "No" or "Yes"
+5)  `work type`: "Children", "Govt. job", "Never worked", "Private" or "Self-employed"
+6)  `Residencetype`: "Rural" or "Urban"
+7)  `avg glucose level`: Average glucose level in blood
+8)  `BMI`: Body mass index
+9)  `smoking_status`: "formerly smoked", "never smoked", "smokes" or "Unknown"\*
+10) `stroke`: 1 if the patient had a stroke or 0 if not
 
 ## Questions
 
-1)How accurate are various  prediction models for detecting a stroke in a patient?
+1\) How accurate are various prediction models for detecting a stroke in a patient?
 
-2)How effective are certain preventive measures, lifestyle changes, or medical interventions in reducing the risk of stroke development in high-risk individuals or specific demographic groups?
+2\) How effective are certain preventive measures, lifestyle changes, or medical interventions in reducing the risk of stroke development?
 
 ## Analysis plan
 
 -   **Data Pruning and Cleaning**
+
     -   Implement various Imputation techniques to replace NA values
 
     -   Possibly remove various NA values
 
     -   Prune data values that are not needed
+
 -   **Exploring Data**
+
     -   Summary statistics of the data
 
     -   Create simple graphs such as box plot and histograms
+
 -   **Create Visualizations**
-    -   Visualize various variables that could affect brain strokes such as age and bmi
+
+    -   Visualize various variables that could affect brain strokes such as age, heart disease, avg glucose level, hypertension and smoking status
+
 -   **Prediction Model Algorithms**
+
     -   K-Nearest Neighbors Model implementation
 
     -   Random Forest Model implementation
@@ -71,17 +77,19 @@ We selected the "Brain Stroke Data set" for its comprehensiveness and relevance 
     -   Decision tree Model implementation
 
     -   Other models if need
--   **Evaluations and Results**
-    -   Grab error metrics from each model to determine their performance
 
-    -   Compare error metrics between model to determine which had the best performance
+-   **Evaluations and Results**
+
+    -   Compare F1 score, Accuracy, Precision and Recall between the models
+
+    -   Compare error metrics between models to determine which had the best performance
 
     -   Choose overall best model and give explanation as to why this model worked the best
 
 ## Plan of Attack
 
 |             Week             |                    Weekly Tasks                    | Team members involved |
-|:---------------------:|:-------------------------:|:---------------------:|
+|:----------------------------:|:--------------------------------------------------:|:---------------------:|
 |     Till November 8^th^      |   Explore the dataset and the problem statement    |       Everyone        |
 |              \-              |               Complete the proposal                |       Everyone        |
 |     Nov. 9^th^ - 14^th^      |             Exploratory Data Analysis              |          TBD          |
@@ -92,5 +100,19 @@ We selected the "Brain Stroke Data set" for its comprehensiveness and relevance 
 |              \-              |         Random Forest Model implementation         |          TBD          |
 | Nov. 30^th^ - December 7^th^ |                  Model Evaluation                  |          TBD          |
 |              \-              |                  Model Comparison                  |          TBD          |
-|     Dec. 8^th^ - 11^th^      | Refining the code with comments and final changes  |          TBD          |
-|              \-              |     Write-up and presentation for the project      |          TBD          |
+|     Dec. 8^th^ - 11^th^      | Refining the code with comments and final changes  |       Everyone        |
+|              \-              |     Write-up and presentation for the project      |       Everyone        |
+
+## Repo Organization
+
+The following are the folders involved in the Project repository.
+
+-   **'data/':** Used for storing any necessary data files for the project, such as input files.
+
+-   **'images/':** Used for storing image files used in the project.
+
+-   **'\_extra/':** Used to brainstorm our analysis which won't impact our project workflow.
+
+-   **'\_freeze/':** This folder is used to store the generated files during the build process. These files represent the frozen state of the website at a specific point in time.
+
+-   **'.github/':** Folder for storing github templates and workflow.
