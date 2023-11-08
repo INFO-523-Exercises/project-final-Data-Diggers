@@ -44,7 +44,32 @@ The two questions you want to answer.
 
 ## Analysis plan
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+-   **Data Pruning and Cleaning**
+    -   Implement various Imputation techniques to replace NA values
+
+    -   Possibly remove various NA values
+
+    -   Prune data values that are not needed
+-   **Exploring Data**
+    -   Summary statistics of the data
+
+    -   Create simple graphs such as box plot and histograms
+-   **Create Visualizations**
+    -   Visualize various variables that could affect brain strokes such as age and bmi
+-   **Prediction Model Algorithms**
+    -   K-Nearest Neighbors Model implementation
+
+    -   Random Forest Model implementation
+
+    -   Decision tree Model implementation
+
+    -   Other models if need
+-   **Evaluations and Results**
+    -   Grab error metrics from each model to determine their performance
+
+    -   Compare error metrics between model to determine which had the best performance
+
+    -   Choose overall best model and give explanation as to why this model worked the best
 
 ## Plan of Attack
 
