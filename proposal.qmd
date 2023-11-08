@@ -44,7 +44,9 @@ We selected the "Brain Stroke Data set" for its comprehensiveness and relevance 
 
 ## Questions
 
-The two questions you want to answer.
+1)How accurate are various  prediction models for detecting a stroke in a patient?
+
+2)How effective are certain preventive measures, lifestyle changes, or medical interventions in reducing the risk of stroke development in high-risk individuals or specific demographic groups?
 
 ## Analysis plan
 
