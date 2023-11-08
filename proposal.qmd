@@ -34,7 +34,8 @@ We selected the "Brain Stroke Data set" for its comprehensiveness and relevance 
 1) gender: "Male", "Female" or "Other"
 2) age: age of the patient
 3) hypertension: 0 if the patient doesn't have hypertension, 1 if the patient has hypertension
-4) heart disease: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease 5) Ever-married: "No" or "Yes"
+4) heart disease: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease 
+5) Ever-married: "No" or "Yes"
 6) work type: "children", "Govtjov", "Never worked", "Private" or "Self-employed" 
 7) Residencetype: "Rural" or "Urban"
 8) avg glucose level: average glucose level in blood
