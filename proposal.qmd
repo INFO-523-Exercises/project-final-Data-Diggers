@@ -29,3 +29,20 @@ The two questions you want to answer.
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+
+## Plan of Attack
+
+|             Week             |                    Weekly Tasks                    | Team members involved |
+|:---------------------:|:-------------------------:|:---------------------:|
+|     Till November 8^th^      |   Explore the dataset and the problem statement    |       Everyone        |
+|              \-              |               Complete the proposal                |       Everyone        |
+|     Nov. 9^th^ - 14^th^      |             Exploratory Data Analysis              |          TBD          |
+|              \-              | Data cleaning and Data pre-processing based on EDA |          TBD          |
+|     Nov. 15^th^ - 21^st^     |                 Data Visualization                 |          TBD          |
+|              \-              |                Training and Testing                |          TBD          |
+|     Nov. 22^nd^ - 29^th^     |      K-Nearest Neighbors Model implementation      |          TBD          |
+|              \-              |         Random Forest Model implementation         |          TBD          |
+| Nov. 30^th^ - December 7^th^ |                  Model Evaluation                  |          TBD          |
+|              \-              |                  Model Comparison                  |          TBD          |
+|     Dec. 8^th^ - 11^th^      | Refining the code with comments and final changes  |          TBD          |
+|              \-              |     Write-up and presentation for the project      |          TBD          |
