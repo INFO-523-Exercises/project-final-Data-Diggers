@@ -2,25 +2,41 @@
 title: "Proposal title"
 subtitle: "Proposal"
 format: html
+code-fold: true
 editor: visual
 ---
 
-```{r}
-#| label: load-pkgs
-#| message: false
-library(tidyverse)
+## Setup
+
+```{r warning=FALSE,message=FALSE}
+
+if (!require("pacman")) 
+  install.packages("pacman")
+
+pacman::p_load(here,dplyr)
 ```
 
 ## Dataset
 
 ```{r}
-#| label: load-dataset
-#| message: false
+
+brain_stroke <- read.csv(here("data","brain_stroke.csv"))
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets.
 
-Make sure to load the data and use inline code for some of this information.
+The central objective of this project is to develop an advanced machine-learning model for stroke prediction using the "Brain Stroke Data set," which consists of 4982 rows and 11 columns. This dataset provides a substantial pool of patient records and attributes for analysis. Our motivation for this project is rooted in the pressing need to enhance early stroke detection and risk assessment, two critical factors directly impacting patient care and stroke prevention strategies.
+
+We selected the "Brain Stroke Data set" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to construct a robust predictive model that can identify individuals at higher risk of stroke, ultimately enabling timely interventions and tailored preventive measures.
+
+## **Attribute Information**
+
+`gender`: "Male", "Female" or "Other"\
+`age`: age of the patient\
+`hypertension`: 0 if the patient doesn't have hypertension, 1 if the patient has hypertension\
+`heart disease`: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease 5) Ever-`married`: "No" or "Yes"\
+`work type`: "children", "Govtjov", "Never worked", "Private" or "Self-employed" 7) Residencetype: "Rural" or "Urban"\
+`avg glucose level`: average glucose level in blood
 
 ## Questions
 
