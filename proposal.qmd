@@ -1,6 +1,6 @@
 ---
-title: "Proposal title"
-subtitle: "Proposal"
+title: "Seeing the Unseen"
+subtitle: "Predicting Stroke in a Patient"
 format: html
 code-fold: true
 editor: visual
@@ -16,14 +16,16 @@ if (!require("pacman"))
 pacman::p_load(here,dplyr)
 ```
 
+## Introduction
+
+The central objective of this project is to evaluate the accuracy of various prediction models, shedding light on their effectiveness in early stroke detection, which could significantly impact patient outcomes and healthcare resource allocation.
+
 ## Dataset
 
 ```{r}
 
 brain_stroke <- read.csv(here("data","brain_stroke.csv"))
 ```
-
-The central objective of this project is to evaluate the accuracy of various prediction models, shedding light on their effectiveness in early stroke detection, which could significantly impact patient outcomes and healthcare resource allocation.
 
 The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets and consists of 4982 rows and 11 columns. This dataset provides a substantial pool of patient records and attributes for analysis. Our motivation for this project is rooted in the pressing need to enhance early stroke detection and risk assessment, two critical factors directly impacting patient care and stroke prevention strategies.
 
@@ -89,7 +91,7 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 ## Plan of Attack
 
 |             Week             |                    Weekly Tasks                    | Team members involved |
-|:----------------------------:|:--------------------------------------------------:|:---------------------:|
+|:---------------------:|:-------------------------:|:---------------------:|
 |     Till November 8^th^      |   Explore the dataset and the problem statement    |       Everyone        |
 |              \-              |               Complete the proposal                |       Everyone        |
 |     Nov. 9^th^ - 14^th^      |             Exploratory Data Analysis              |          TBD          |
