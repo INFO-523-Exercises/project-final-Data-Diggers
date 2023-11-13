@@ -16,7 +16,7 @@ if (!require("pacman"))
 pacman::p_load(here,dplyr)
 ```
 
-## Introduction
+## Objective
 
 The central objective of this project is to evaluate the accuracy of various prediction models, shedding light on their effectiveness in early stroke detection, which could significantly impact patient outcomes and healthcare resource allocation.
 
@@ -29,29 +29,33 @@ brain_stroke <- read.csv(here("data","brain_stroke.csv"))
 
 The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets and consists of 4982 rows and 11 columns. This dataset provides a substantial pool of patient records and attributes for analysis. Our motivation for this project is rooted in the pressing need to enhance early stroke detection and risk assessment, two critical factors directly impacting patient care and stroke prevention strategies.
 
-We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to construct a robust predictive model that can identify individuals at higher risk of stroke, ultimately enabling timely interventions and tailored preventive measures.
-
 ## **Attribute Information**
 
 1)  `gender`: "Male", "Female" or "Other"
 2)  `age`: Age of the patient
 3)  `hypertension`: 0 if the patient doesn't have hypertension, 1 if the patient has hypertension
-4)  `heart disease`: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease 
+4)  `heart disease`: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease
 5)  `Ever-married`: "No" or "Yes"
 6)  `work type`: "Children", "Govt. job", "Never worked", "Private" or "Self-employed"
 7)  `Residencetype`: "Rural" or "Urban"
 8)  `avg glucose level`: Average glucose level in blood
 9)  `BMI`: Body mass index
-10)  `smoking_status`: "formerly smoked", "never smoked", "smokes" or "Unknown"\*
+10) `smoking_status`: "formerly smoked", "never smoked", "smokes" or "Unknown"\*
 11) `stroke`: 1 if the patient had a stroke or 0 if not
+
+## Why we chose this dataset?
+
+We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to construct a robust predictive model that can identify individuals at higher risk of stroke, ultimately enabling timely interventions and tailored preventive measures.
 
 ## Questions
 
 1\) How accurate are various prediction models for detecting a stroke in a patient?
 
-2\) How effective are certain preventive measures, lifestyle changes, or medical interventions in reducing the risk of stroke development?
+2\) How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke?
 
 ## Analysis plan
+
+### Question 1 -
 
 -   **Data Pruning and Cleaning**
 
@@ -89,20 +93,29 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 
     -   Choose overall best model and give explanation as to why this model worked the best
 
+        ### Question 2 -
+
+    -   Pick the overall best model from the first question
+
+    -   Calculate performance metrics like F1 score, accuracy, precision and recall excluding each attribute one at a time
+
+    -   Based on the above results estimate how significant each attribute and estimate the ranking order
+
 ## Plan of Attack
 
 |             Week             |                    Weekly Tasks                    | Team members involved |
-|:---------------------:|:-------------------------:|:---------------------:|
+|:------------------:|:--------------------------------:|:-----------------:|
 |     Till November 8^th^      |   Explore the dataset and the problem statement    |       Everyone        |
 |              \-              |               Complete the proposal                |       Everyone        |
-|     Nov. 9^th^ - 14^th^      |             Exploratory Data Analysis              |          TBD          |
-|              \-              | Data cleaning and Data pre-processing based on EDA |          TBD          |
-|     Nov. 15^th^ - 21^st^     |                 Data Visualization                 |          TBD          |
-|              \-              |                Training and Testing                |          TBD          |
-|     Nov. 22^nd^ - 29^th^     |      K-Nearest Neighbors Model implementation      |          TBD          |
-|              \-              |         Random Forest Model implementation         |          TBD          |
-| Nov. 30^th^ - December 7^th^ |                  Model Evaluation                  |          TBD          |
-|              \-              |                  Model Comparison                  |          TBD          |
+|     Nov. 9^th^ - 14^th^      |             Exploratory Data Analysis              |   Abhishek, Shreya    |
+|              \-              | Data cleaning and Data pre-processing based on EDA |      Daniel, Ram      |
+|     Nov. 15^th^ - 21^st^     |                 Data Visualization                 |    Kashyap, Daniel    |
+|              \-              |                Training and Testing                |   Abhishek, Shreya    |
+|     Nov. 22^nd^ - 29^th^     |      K-Nearest Neighbors Model implementation      |     Kashyap, Ram      |
+|              \-              |         Random Forest Model implementation         |      Daniel, Ram      |
+| Nov. 30^th^ - December 7^th^ |                  Model Evaluation                  |   Abhishek, Shreya    |
+|              \-              |                  Model Comparison                  |       Everyone        |
+|              \-              |         Finding the attribute significance         |     Kashyap, Ram      |
 |     Dec. 8^th^ - 11^th^      | Refining the code with comments and final changes  |       Everyone        |
 |              \-              |     Write-up and presentation for the project      |       Everyone        |
 
