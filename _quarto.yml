@@ -2,11 +2,11 @@ project:
   type: website
 
 website:
-  title: Project Title
+  title: Seeing the Unseen
   navbar:
     right:
       - icon: github
-        href: https://github.com/INFO526-DataViz/project-01
+        href: https://github.com/INFO-523-Exercises/project-final-Data-Diggers
     left:
       - text: Project
         href: index.qmd

@@ -1,7 +1,7 @@
 ---
-title: "Project title"
-subtitle: "INFO 523 - Project Final"
-author: "Team name"
+title: "Seeing the Unseen"
+subtitle: "Predicting Brain Stroke in a Patient"
+author: "Data Diggers"
 format: html
 editor: visual
 ---
