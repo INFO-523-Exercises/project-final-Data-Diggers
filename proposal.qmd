@@ -1,6 +1,6 @@
 ---
 title: "Seeing the Unseen"
-subtitle: "Predicting Stroke in a Patient"
+subtitle: "Predicting Brain Stroke in a Patient"
 format: html
 code-fold: true
 editor: visual
