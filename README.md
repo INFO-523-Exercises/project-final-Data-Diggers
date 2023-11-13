@@ -1,6 +1,5 @@
 # project-final
 
-Final project repo for INFO 523 - Fall 2023.
+Final project repo for INFO 523 - Fall 2023 - Data Diggers
 
-#### Disclosure:
-Derived from the original data viz course by Mine Çetinkaya-Rundel @ Duke University
+# Topic: Predicting Brain Stroke in a patient
