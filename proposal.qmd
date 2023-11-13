@@ -55,7 +55,7 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 
 ## Analysis plan
 
-### Question 1 -
+###  Question 1 -
 
 -   **Data Pruning and Cleaning**
 
@@ -93,13 +93,13 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 
     -   Choose overall best model and give explanation as to why this model worked the best
 
-        ### Question 2 -
+## Question 2 - 
 
-    -   Pick the overall best model from the first question
+-   Pick the overall best model from the first question
 
-    -   Calculate performance metrics like F1 score, accuracy, precision and recall excluding each attribute one at a time
+-   Calculate performance metrics like F1 score, accuracy, precision and recall excluding each attribute one at a time
 
-    -   Based on the above results estimate how significant each attribute and estimate the ranking order
+-   Based on the above results estimate how significant each attribute and estimate the ranking order
 
 ## Plan of Attack
 
