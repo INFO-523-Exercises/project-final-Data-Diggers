@@ -31,21 +31,30 @@ The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain
 
 ## **Attribute Information**
 
-1)  `gender`: "Male", "Female" or "Other"
-2)  `age`: Age of the patient
-3)  `hypertension`: 0 if the patient doesn't have hypertension, 1 if the patient has hypertension
-4)  `heart disease`: 0 if the patient doesn't have any heart diseases, 1 if the patient has a heart disease
-5)  `Ever-married`: "No" or "Yes"
-6)  `work type`: "Children", "Govt. job", "Never worked", "Private" or "Self-employed"
-7)  `Residencetype`: "Rural" or "Urban"
-8)  `avg glucose level`: Average glucose level in blood
-9)  `BMI`: Body mass index
-10) `smoking_status`: "formerly smoked", "never smoked", "smokes" or "Unknown"\*
-11) `stroke`: 1 if the patient had a stroke or 0 if not
+| Column            | Data Type   | Description                                                                   |
+|-------------------|-------------|-------------------------------------------------------------------------------|
+| Gender            | `character` | "Male", "Female" or "Other"                                                   |
+| Age               | `integer`   | Age of the patient                                                            |
+| Hypertension      | `boolean`   | 0 if the patient doesn't have hypertension, 1 if the patient has hypertension |
+| Ever-married      | `character` | "No" or "Yes"                                                                 |
+| Work Type         | `character` | "Children", "Govt. job", "Never worked", "Private" or "Self-employed"         |
+| Residence type    | `character` | "Rural" or "Urban"                                                            |
+| Avg glucose level | `numeric`   | Average glucose level in blood                                                |
+| BMI               | `numeric`   | Body mass index                                                               |
+| Smoking status    | `character` | "formerly smoked", "never smoked", "smokes" or "Unknown"                      |
+| Stroke            | `boolean`   | 1 if the patient had a stroke or 0 if not                                     |
 
 ## Why we chose this dataset?
 
-We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to construct a robust predictive model that can identify individuals at higher risk of stroke, ultimately enabling timely interventions and tailored preventive measures.
+We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to create a predictive model to accurately classify whether an individual is at a high risk of brain stroke, ultimately enabling timely interventions and tailored preventive measures.
+
+## Approach
+
+-   We will consider the attributes for analysis and perform Exploratory Data Analysis to identify the general patterns in the dataset.
+
+-   Develop classification models using K-Nearest Neighbors, Random Forest and Decision Tree and pick the best model in identifying the early stage risk of brain stroke in a patient.
+
+-   Using the best model, we will check the significance of each attribute in classifying the risk level of a patient.
 
 ## Questions
 
@@ -65,7 +74,7 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 
     -   Prune data values that are not needed
 
--   **Exploring Data**
+-   **Exploratory Data Analysis**
 
     -   Summary statistics of the data
 
@@ -81,7 +90,7 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 
     -   Random Forest Model implementation
 
-    -   Decision tree Model implementation
+    -   Decision Tree Model implementation
 
     -   Other models if need
 
@@ -104,7 +113,7 @@ We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance t
 ## Plan of Attack
 
 |             Week             |                    Weekly Tasks                    | Team members involved |
-|:------------------:|:--------------------------------:|:-----------------:|
+|:----------------------------:|:--------------------------------------------------:|:---------------------:|
 |     Till November 8^th^      |   Explore the dataset and the problem statement    |       Everyone        |
 |              \-              |               Complete the proposal                |       Everyone        |
 |     Nov. 9^th^ - 14^th^      |             Exploratory Data Analysis              |   Abhishek, Shreya    |
