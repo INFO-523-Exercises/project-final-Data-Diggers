@@ -1,0 +1,176 @@
+---
+title: "EDA"
+author: "Data Diggers"
+editor: visual
+---
+
+```{python}
+#loading the important libraries for Exploratory Data Ananlysis.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+```
+
+```{python}
+#reading the dataset
+brain = pd.read_csv("C:/Users/ABHISHEK DEORE/OneDrive/Desktop/New folder/project-final-Data-Diggers/data/brain_stroke.csv")
+brain.head()
+```
+
+```{python}
+#shape of the data
+brain.shape
+```
+
+```{python}
+#checking for NA values in the dataset
+brain.isnull().sum()
+```
+
+Above code deliniates that there are no NA values in the whole data-set.
+
+```{python}
+#checking basic info about the data-set
+brain.info() 
+```
+
+Now, we will try to convert the categorical data into binary data which will help us in visualizing on the data well and it will computationally less expensive for us when we try to train our models on this dataset.
+
+```{python}
+brain["gender"].unique() #checking the unique values in the column "gender"
+```
+
+Here, Male can be mapped to 1 and Female can be mapped to 0.
+
+```{python}
+brain["gender"] = brain["gender"].map({"Male":1, "Female":0})
+```
+
+Similarly, we will check for other columns!
+
+```{python}
+brain["work_type"].unique()
+```
+
+We have identified that the "smoking_status" column has four unique values, including "Unknown." It is prudent to exclude rows with unknown smoking status from our model training since predicting outcomes for individuals without smoking status information lacks meaningful input. Additionally, retaining such unknown values might introduce noise and compromise the model's predictive accuracy, emphasizing the importance of removing these instances.As Four unique values are present, we cant change it to Binary values. Thus we will leave it as it is.
+
+```{python}
+brain["Residence_type"].unique()
+```
+
+Convert them as Urban = 1 and Rural as 0
+
+```{python}
+brain["Residence_type"] = brain["Residence_type"].map({"Urban":1, "Rural":0})
+```
+
+```{python}
+brain["smoking_status"].unique()
+```
+
+Here too 4 unique values are displayed. So no changing them.
+
+```{python}
+brain["ever_married"].unique()
+```
+
+Yes can be mapped to 1 and no can be mapped to 0.
+
+```{python}
+brain["ever_married"] = brain["ever_married"].map({"Yes":1, "No":0})
+```
+
+Now, displaying the dataset.
+
+```{python}
+brain.head()
+```
+
+We have identified that the "**`smoking_status`**" column has four unique values, including "Unknown." It is prudent to exclude rows with unknown smoking status from our model training since predicting outcomes for individuals without smoking status information lacks meaningful input. Additionally, retaining such unknown values might introduce noise and compromise the model's predictive accuracy, emphasizing the importance of removing these instances.
+
+```{python}
+#counting the number of Unknowns in the "smoke_staus"
+unknown_count = brain['smoking_status'].value_counts().get('Unknown', 0)
+print(f"Number of 'Unknown' in smoking_status: {unknown_count}")
+```
+
+We will now remove these 1500 rows!
+
+```{python}
+brain = brain[brain['smoking_status'] != 'Unknown']
+
+# If you want to reset the index
+brain.reset_index(drop=True, inplace=True)
+```
+
+```{python}
+brain["smoking_status"].unique()
+```
+
+Above code confirms that there are no "Unknowns" present in the **`smoking_status.`**
+
+```{python}
+plt.figure()
+sns.countplot(x='work_type', hue='smoking_status', data=brain)
+plt.title('Relationship between work_type and smoking_status')
+plt.grid(color = "gray")
+plt.show()
+```
+
+The bar chart depicts the correlation between **`work_type`** and **`smoking_status`**. It features four bars (private, self-employed, government, and children), each divided into three sections (smokes, formerly smoked, and never smoked). The y-axis represents the count of individuals, while the x-axis represents work types. Notably, individuals in the private sector are more likely to smoke, with approximately 500 people, and have almost equal incidence of past smoking compared to other sectors. Self-employed and government workers show lower smoking counts and a proportionally smaller "formerly smoked" segment. Children exhibit the least smoking prevalence.
+
+```{python}
+bins = range(0, int(brain['age'].max()) + 6, 5)
+labels = [f'{start}-{end}' for start, end in zip(bins[:-1], bins[1:])]
+brain['age_group'] = pd.cut(brain['age'], bins=bins, labels=labels, right=False)
+
+# Group by 'gender' and 'age_group' and calculate the mean of 'heart_disease'
+grouped_data = brain.groupby(['gender', 'age_group'])['heart_disease'].mean().reset_index()
+
+# Create a bar plot
+plt.figure(figsize=(9, 5))
+sns.barplot(x='age_group', y='heart_disease', hue='gender', data=grouped_data, palette='viridis')
+plt.title('Likelihood of Heart Disease by Gender and Age Group')
+plt.xlabel('Age Group')
+plt.ylabel('Likelihood of Heart Disease')
+plt.grid(color = "gray")
+plt.show()
+```
+
+The graph shows that the likelihood of heart disease increases with age for both males and females, but it is higher for males than for females at all ages. The likelihood of heart disease is also highest for males in the 70-75 age group and for females in the 80-85 age group.
+
+```{python}
+grouped_data = brain.groupby(['gender', 'work_type'])['heart_disease'].mean().reset_index()
+
+# Create a bar plot
+plt.figure(figsize=(9, 5))
+sns.barplot(x='work_type', y='heart_disease', hue='gender', data=grouped_data, palette='viridis')
+plt.title('Likelihood of Heart Disease by Gender and Worktype')
+plt.xlabel('Worktype')
+plt.ylabel('Likelihood of Heart Disease')
+plt.grid(color = "gray")
+plt.show()
+```
+
+The graph shows that the likelihood of heart disease is higher for people who are self-employed than for people who work in government jobs or private sector jobs. The likelihood of heart disease is also higher for males than for females in all work types.
+
+```{python}
+plt.figure()
+sns.histplot(x='age', hue='stroke', data=brain, kde=True, bins=30, palette=['red', 'blue'])
+plt.title('Age Distribution by Stroke')
+
+plt.show()
+```
+
+The plot shows that the age distribution of stroke patients is skewed to the right, meaning that there are more older stroke patients than younger stroke patients. The median age of stroke patients in the dataset is 65 years old. Patients with a history of stroke are also more likely to be older than patients without a history of stroke.
+
+```{python}
+sns.countplot(x='smoking_status', hue='stroke', data=brain, palette='viridis')
+plt.title('Count of Strokes by Smoking Status')
+plt.grid(color = "gray")
+plt.show()
+
+```
+
+It's unexpected to observe that the likelihood of experiencing a stroke remains low regardless of an individual's smoking status. Despite this, it can be deduced that individuals who have never smoked exhibit a lower susceptibility to stroke.
