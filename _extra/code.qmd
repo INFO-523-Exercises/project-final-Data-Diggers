@@ -1,4 +1,10 @@
-
+---
+title: "brain stroke"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
 
 ```{r}
 #| label: load-pkgs
@@ -10,17 +16,175 @@ library(lubridate)
 
 ```
 
-
 ## Dataset Setup
-```{r}
+
+```{python}
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Replace 'your_file.csv' with the actual name of your CSV file
+file_path = 'brain_stroke.csv'
+
+# Read the CSV file into a pandas DataFrame
+brain_stroke_data = pd.read_csv(file_path)
+
+# Display the first few rows of the DataFrame
+print(brain_stroke_data.head())
+```
+
+## Random Forest
+
+```{python}
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Assuming 'brain_stroke_data' is the name of your DataFrame
+
+# Select specific columns
+selected_columns = ['age', 'heart_disease', 'hypertension', 'avg_glucose_level', 'stroke']
+df_selected = brain_stroke_data[selected_columns]
+
+# Define features (X) and target variable (y)
+X = df_selected.drop('stroke', axis=1)
+y = df_selected['stroke']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the Random Forest model
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Fit the model on the training data
+rf_model.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = rf_model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+class_report = classification_report(y_test, y_pred)
+
+# Print the results
+print(f'Random Forest - Accuracy: {accuracy:.4f}\n')
+print('Confusion Matrix:')
+print(conf_matrix)
+print('\nClassification Report:')
+print(class_report)
 
 
 ```
 
+## Decision Tree
 
+```{python}
+
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Assuming 'brain_stroke_data' is the name of your DataFrame
+
+# Select specific columns
+selected_columns = ['age', 'heart_disease', 'hypertension', 'avg_glucose_level', 'stroke']
+df_selected = brain_stroke_data[selected_columns]
+
+# Define features (X) and target variable (y)
+X = df_selected.drop('stroke', axis=1)
+y = df_selected['stroke']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the Decision Tree model
+dt_model = DecisionTreeClassifier(random_state=42)
+
+# Fit the model on the training data
+dt_model.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = dt_model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+class_report = classification_report(y_test, y_pred)
+
+# Print the results
+print(f'Decision Tree - Accuracy: {accuracy:.4f}\n')
+print('Confusion Matrix:')
+print(conf_matrix)
+print('\nClassification Report:')
+print(class_report)
+
+
+```
+
+## KNN
+
+```{python}
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+
+# Assuming 'brain_stroke_data' is the name of your DataFrame
+
+# Select specific columns
+selected_columns = ['age', 'heart_disease', 'hypertension', 'avg_glucose_level', 'stroke']
+df_selected = brain_stroke_data[selected_columns]
+
+# Define features (X) and target variable (y)
+X = df_selected.drop('stroke', axis=1)
+y = df_selected['stroke']
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize the features (important for KNN)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Initialize the KNN model
+knn_model = KNeighborsClassifier(n_neighbors=5)
+
+# Fit the model on the scaled training data
+knn_model.fit(X_train_scaled, y_train)
+
+# Make predictions on the scaled test data
+y_pred = knn_model.predict(X_test_scaled)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+class_report = classification_report(y_test, y_pred)
+
+# Print the results
+print(f'KNN - Accuracy: {accuracy:.4f}\n')
+print('Confusion Matrix:')
+print(conf_matrix)
+print('\nClassification Report:')
+print(class_report)
+
+
+
+```
 
 ## Plots
+
 ```{r}
+
 
 
 ```
