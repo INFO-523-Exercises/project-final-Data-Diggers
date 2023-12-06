@@ -14,7 +14,12 @@ import numpy as np
 
 ```{python}
 #reading the dataset
-brain = pd.read_csv("C:/Users/ABHISHEK DEORE/OneDrive/Desktop/New folder/project-final-Data-Diggers/data/brain_stroke.csv")
+
+# Replace 'your_file.csv' with the actual name of your CSV file
+file_path = 'brain_stroke.csv'
+
+# Read the CSV file into a pandas DataFrame
+brain = pd.read_csv(file_path)
 brain.head()
 ```
 
