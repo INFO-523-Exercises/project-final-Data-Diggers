@@ -8,4 +8,84 @@ editor: visual
 
 ## Abstract
 
-Add project abstract here.
+Strokes are a significant public health concern worldwide, and predicting the risk factors associated with strokes can contribute to early intervention and improved patient outcomes. This project aims to implement machine learning models on a data pretaning to stroke occurrences.
+
+```{r, echo=FALSE}
+# import the data
+brain <- read.csv("data/brain_stroke.csv")
+```
+
+## Dataset Modifications
+
+To work well with the data we made some changes
+
+-   remove columns that we are not that curious about such as married and work type
+
+-   change gender to 1 being male and 0 being female for correlation analysis
+
+-   change smoking to be 0 for never smoking and 1 to smoking, unknown smoking will be counted as not smoking
+
+## Data Analysis with Visualizations
+
+we can create our correlation plot with all our variables to determine which variable have the most effect on strokes
+
+```{r, echo=FALSE}
+
+if (!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(flexdashboard,
+              ggplot2,
+               corrplot,
+              dplyr)
+
+numeric_brain <- brain %>% select(-Residence_type, -work_type, -ever_married) %>%
+  mutate(gender = if_else(gender == "Male", 1, 0)) %>%
+  mutate(smoking_status = if_else(smoking_status == "never smoked", 0, 1))
+
+
+numeric_data <- numeric_brain[, sapply(numeric_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+corrplot(correlation_matrix, method = "color")
+```
+
+We can see that age has the highest correlation with strokes but no single variable has a distinct correlation with stroke.
+
+Age will be an important factor with our analysis so lets looks at it further
+
+```{r, echo=FALSE}
+ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point() +
+  scale_color_manual(values = c("lightblue", "red"), , name = "stroke") +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age")
+```
+
+It seems that a combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
+
+smoking did not show up as having any correlation with strokes but maybe that's because we combined not smoking and unknown. so lets separate the unknown smoking data from the rest to test.
+
+```{r, echo=FALSE}
+ggplot(brain, aes(x = smoking_status, fill = as.factor(stroke))) +   
+  geom_bar(stat = "count", position = "fill") +   
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") + 
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") + 
+  xlab("smoking status") +   
+  ylab("percentage count")
+```
+
+Interestingly we see that never smoked and smoke have the same percentage for having a stroke, so again individually smoking will not play a huge role in deciding strokes or not, but maybe with other variable that could change.
+
+Lets take a look at disease correlation with stroke
+
+```{r, echo=FALSE}
+ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) + 
+  geom_bar(position = "fill", color = "black") + 
+  facet_grid(. ~ heart_disease) + 
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",        x = "hypertension", y = "Percentage Count", fill = "Stroke") +  
+  scale_fill_manual(values = c("lightblue",  "red"))
+```
+
+There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance.
