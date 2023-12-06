@@ -1,0 +1,75 @@
+---
+title: "visualizations"
+author: "Data Diggers"
+format: html
+editor: visual
+---
+
+## Data Import
+
+```{r}
+brain <- read.csv("../data/brain_stroke.csv")
+```
+
+## Import Packages
+
+```{r}
+if (!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(flexdashboard,
+              ggplot2,
+               corrplot,
+              dplyr)
+```
+
+## Correlations
+
+our data need to be numeric so lets temporarily remove some columns that we are not that curious about and lets change gender to 1 being male and 0 being female. We will also change smoking to be 0 for never smoking and 1 to smoking, unknown smoking will be counted as not smoking
+
+```{r}
+numeric_brain <- brain %>% select(-Residence_type, -work_type, -ever_married) %>%
+  mutate(gender = if_else(gender == "Male", 1, 0)) %>%
+  mutate(smoking_status = if_else(smoking_status == "never smoked", 0, 1))
+
+```
+
+Now we can create our correlation plot with all our variables
+
+```{r}
+
+
+numeric_data <- numeric_brain[, sapply(numeric_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+corrplot(correlation_matrix, method = "color")
+
+```
+
+We can see that age has the highest correlation with strokes but no single variable has a distinct correlation with stroke.
+
+Age will be an important factor with our analysis so lets looks at it further
+
+```{r}
+ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point() +
+  scale_color_manual(values = c("lightblue", "red"), , name = "stroke") +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age")
+```
+
+It seems that a combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
+
+smoking did not show up as having any correlation with strokes but maybe that's because we combined not smoking and unknown. so lets separate the unknown smoking data from the rest to test.
+
+```{r}
+ggplot(brain, aes(x = smoking_status, fill = as.factor(stroke))) +
+  geom_bar(stat = "count", position = "fill") +
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
+  xlab("smoking status") +
+  ylab("percentage count")
+```
+
+interestingly we see that never smoked and smoke have the same percentage for having a stroke, so again individually smoking will not play a huge role in deciding strokes or not, but maybe with other variable that could change.
