@@ -73,3 +73,16 @@ ggplot(brain, aes(x = smoking_status, fill = as.factor(stroke))) +
 ```
 
 interestingly we see that never smoked and smoke have the same percentage for having a stroke, so again individually smoking will not play a huge role in deciding strokes or not, but maybe with other variable that could change.
+
+Lets take a look at disease correlation with stroke
+
+```{r}
+ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
+```
+
+There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance
