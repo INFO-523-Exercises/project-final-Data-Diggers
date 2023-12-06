@@ -8,4 +8,4 @@ editor: visual
 
 ## Abstract
 
-Add project abstract here.
+Strokes are a significant public health concern worldwide, and predicting the risk factors associated with strokes can contribute to early intervention and improved patient outcomes. This project aims to implement machine learning models on a data pretaning to stroke occurrences.
