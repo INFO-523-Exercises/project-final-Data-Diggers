@@ -28,8 +28,14 @@ pacman::p_load(flexdashboard,
                corrplot,
               dplyr)
 ```
+## Questions:
+1) How accurate are various prediction models for detecting a stroke in a patient?
 
-## Correlations
+2) How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke?
+
+##Exploratory Data Analysis: 
+
+## Correlations:
 
 our data need to be numeric so lets temporarily remove some columns that we are not that curious about and lets change gender to 1 being male and 0 being female. We will also change smoking to be 0 for never smoking and 1 to smoking, unknown smoking will be counted as not smoking
 
