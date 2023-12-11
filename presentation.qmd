@@ -40,7 +40,7 @@ warnings.filterwarnings('ignore')
 data=pd.read_csv('brain_stroke.csv')
 print('testing')
 
-```{python}
+```
 #| label: setup
 #| include: false
 
