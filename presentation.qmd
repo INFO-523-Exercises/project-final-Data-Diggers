@@ -151,8 +151,9 @@ Approach
 -   
 :::
 
-## Feeling adventurous??
+## THANK YOU
 
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+```{r,echo=FALSE}
 
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+knitr::include_graphics("images/brain_thankyou.gif")
+```
