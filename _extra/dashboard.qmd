@@ -81,7 +81,7 @@ dis_plot = ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
 
 
 ```{r}
-numeric_over40_brain <- numeric_brain %>% filter(age > 40)
+numeric_over40_brain <- brain %>% filter(age > 40)
    
 numeric_data <- numeric_over40_brain[, sapply(numeric_over40_brain, is.numeric)]
 correlation_matrix <- cor(numeric_data)
@@ -122,92 +122,43 @@ dis_plot_40 = ggplot(numeric_over40_brain, aes(x = hypertension, fill = as.facto
 
 
 ```{r}
-# Prettier times and dates
-recent_quakes <- recent_quakes |> 
-  arrange(desc(time)) |> 
-  mutate(
-    time = force_tz(time, "Pacific/Auckland"),
-    pretty_time = format(time, "%I:%M %p"),
-    days_ago = today(tzone = "Pacific/Auckland") - date(time),
-    days_ago = case_when(
-      days_ago == 0 ~ "Today",
-      days_ago == 1 ~ "Yesterday",
-      TRUE ~ paste0(days_ago, " days ago")
-    )
-  )
-now_nz <- now(tzone = "Pacific/Auckland")
-last_24 <- recent_quakes |> filter(time > (now_nz - hours(24)))
-n_24 <- nrow(last_24)
-hours_last <- round(difftime(now_nz, recent_quakes$time[1], units = "hours"))
+over60_brain <- brain %>% filter(age > 60)
+   
+numeric_data <- over60_brain[, sapply(over60_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+#corplot <- corrplot(correlation_matrix, method = "color")
 ```
 
 ```{r}
-mag_pal <- colorBin("inferno", domain = 1:8, bins = c(0:5, 8))
-
-quake_map <- recent_quakes |> 
-  leaflet() |> 
-  addCircleMarkers(
-    color = ~ mag_pal(magnitude),
-    stroke = FALSE,
-    fillOpacity = 0.5,
-    radius = ~ scales::rescale(sqrt(magnitude), c(1, 10)),
-    label = ~ paste(
-      date(time), pretty_time, "<br/>",
-      "Magnitude:", round(magnitude, 1), "<br/>", 
-      "Depth:",  round(depth), " km"
-      ) |> map(html),
-    labelOptions = c(textsize = "15px")) |> 
-  addLegend(title = "Magnitude", colors = mag_pal(0:5), labels = c("<1", 1:4,">5")) |> 
-  addTiles("http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", options = tileOptions(minZoom = 5, maxZoom = 10)) 
+age_glu_plot_60 = ggplot(over60_brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age") +
+  guides(alpha = "none")
 ```
 
+
 ```{r}
-mag_hist <- recent_quakes |> 
-  ggplot(aes(x = magnitude)) +
-  geom_histogram()
+smoke_plot_60 = ggplot(over60_brain, aes(x = smoking_status, fill = as.factor(stroke))) +
+  geom_bar(stat = "count", position = "fill", color = "black") +
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
+  xlab("smoking status") +
+  ylab("percentage count")
 ```
 
-```{r}
-timeline <- recent_quakes |> 
-  ggplot(aes(x = time, y = 0)) +
-  geom_point()
-```
 
 ```{r}
-# Create n most recent table
-n <- 10
-top_n <- recent_quakes |> 
-  slice(1:n) |> 
-  as.data.frame() |> 
-  select(magnitude, days_ago, pretty_time, locality, depth) 
-
-top_n_table <- top_n |> 
-  gt() |> 
-  cols_label(
-    days_ago = "",
-    locality = "Location",
-    magnitude = "Magnitude",
-    depth = "Depth",
-    pretty_time = ""
-  ) |> 
-  fmt_integer(
-    columns = depth, 
-    pattern = "{x} km"
-  ) |> 
-  fmt_number(
-    columns = magnitude,
-    decimals = 1
-  ) |> 
-  data_color(
-    columns = "magnitude",
-    fn = mag_pal
-  ) |>
-  tab_header(
-    title = md("**Last 10 Earthquakes**")
-  ) |> 
-  tab_source_note(
-    source_note = md(paste("Retrieved from the [GeoNet API](https://api.geonet.org.nz/) at", format(now_nz, "%Y/%m/%d %H:%M %Z")))
-  )
+dis_plot_60 = ggplot(over60_brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
 ```
 
 # All Ages
@@ -230,7 +181,7 @@ dis_plot
 
 ```{r}
 #| title: Smoking relationship with Strokes
-smoke_plot_40
+smoke_plot
 ```
 
 # Above 40
@@ -254,4 +205,27 @@ dis_plot_40
 ```{r}
 #| title: Smoking relationship with Strokes
 smoke_plot_40
+```
+
+# Above 60
+
+## Column
+
+### Row
+
+```{r}
+age_glu_plot_60
+```
+
+### Row
+
+```{r}
+dis_plot_60
+```
+
+## Column
+
+```{r}
+#| title: Smoking relationship with Strokes
+smoke_plot_60
 ```
