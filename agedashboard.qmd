@@ -1,0 +1,231 @@
+---
+title: "Exploring Data"
+author: "Data Diggers"
+format: dashboard
+editor: visual
+---
+
+```{r}
+#| message: false
+
+if (!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(tidymodels,
+               tidyverse,
+               httr2,
+               sf,
+               leaflet,
+               gt,
+               ggplot2,
+               corrplot,
+               dplyr)
+
+
+```
+
+```{r}
+# Get data 
+brain <- read.csv("data/brain_stroke.csv")
+```
+
+```{r}
+# modify data
+numeric_brain <- brain %>% 
+  select(-Residence_type, -work_type, -ever_married) %>%   
+  mutate(gender = if_else(gender == "Male", 1, 0)) %>%   
+  mutate(smoking_status = if_else(smoking_status == "never smoked", 0, 1)) 
+
+numeric_data <- numeric_brain[, sapply(numeric_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+#corplot <- corrplot(correlation_matrix, method = "color")
+```
+
+```{r}
+# all age plot for glucose and stroke
+# 
+age_glu_plot = ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age") +
+  guides(alpha = "none")
+```
+
+```{r}
+# smoking plot with its 4 factors and all ages
+smoke_plot = ggplot(brain, aes(x = smoking_status, fill = as.factor(stroke))) +
+  geom_bar(stat = "count", position = "fill", color = "black") +
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
+  xlab("smoking status") +
+  ylab("percentage count")
+```
+
+```{r}
+# disease bar plot with hypertension heart problems and stroke
+dis_plot = ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
+```
+
+```{r}
+# filter data to only include above the age of 40
+numeric_over40_brain <- brain %>% filter(age > 40)
+   
+numeric_data <- numeric_over40_brain[, sapply(numeric_over40_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+#corplot <- corrplot(correlation_matrix, method = "color")
+```
+
+```{r}
+# above age 40 plot for glucose and stroke
+age_glu_plot_40 = ggplot(numeric_over40_brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age") +
+  guides(alpha = "none")
+```
+
+```{r}
+# smoking plot with its 4 factors above age 40
+smoke_plot_40 = ggplot(numeric_over40_brain, aes(x = smoking_status, fill = as.factor(stroke))) +
+  geom_bar(stat = "count", position = "fill", color = "black") +
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
+  xlab("smoking status") +
+  ylab("percentage count")
+```
+
+```{r}
+# disease bar plot with hypertension heart problems and stroke with ages over 40
+dis_plot_40 = ggplot(numeric_over40_brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
+```
+
+```{r}
+# filter data to only include above the age of 40
+over60_brain <- brain %>% filter(age > 60)
+   
+numeric_data <- over60_brain[, sapply(over60_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+#corplot <- corrplot(correlation_matrix, method = "color")
+```
+
+```{r}
+# above age 60 plot for glucose and stroke
+age_glu_plot_60 = ggplot(over60_brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age") +
+  guides(alpha = "none")
+```
+
+```{r}
+# smoking plot with its 4 factors above age 60
+smoke_plot_60 = ggplot(over60_brain, aes(x = smoking_status, fill = as.factor(stroke))) +
+  geom_bar(stat = "count", position = "fill", color = "black") +
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
+  xlab("smoking status") +
+  ylab("percentage count")
+```
+
+```{r}
+# disease bar plot with hypertension heart problems and stroke with ages over 60
+dis_plot_60 = ggplot(over60_brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
+```
+
+# All Ages
+
+## Column
+
+### Row
+
+```{r}
+age_glu_plot
+```
+
+### Row
+
+```{r}
+dis_plot
+```
+
+## Column
+
+```{r}
+#| title: Smoking relationship with Strokes
+smoke_plot
+```
+
+# Above 40
+
+## Column
+
+### Row
+
+```{r}
+age_glu_plot_40
+```
+
+### Row
+
+```{r}
+dis_plot_40
+```
+
+## Column
+
+```{r}
+#| title: Smoking relationship with Strokes
+smoke_plot_40
+```
+
+# Above 60
+
+## Column
+
+### Row
+
+```{r}
+age_glu_plot_60
+```
+
+### Row
+
+```{r}
+dis_plot_60
+```
+
+## Column
+
+```{r}
+#| title: Smoking relationship with Strokes
+smoke_plot_60
+```
+
+------------------------------------------------------------------------
