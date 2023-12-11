@@ -23,7 +23,7 @@ pacman::p_load(flexdashboard,
               dplyr)
 ```
 
-##Exploratory Data Analysis: 
+##Exploratory Data Analysis:
 
 ## Correlations:
 
@@ -54,11 +54,13 @@ Age will be an important factor with our analysis so lets looks at it further
 
 ```{r}
 ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
-  geom_point() +
-  scale_color_manual(values = c("lightblue", "red"), , name = "stroke") +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
   labs(title = "Age vs. Average Glucose Level") +
   ylab("Average Glucose Level") +
-  xlab("Age")
+  xlab("Age") +
+  guides(alpha = "none")
 ```
 
 It seems that a combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
@@ -67,7 +69,7 @@ smoking did not show up as having any correlation with strokes but maybe that's 
 
 ```{r}
 ggplot(brain, aes(x = smoking_status, fill = as.factor(stroke))) +
-  geom_bar(stat = "count", position = "fill") +
+  geom_bar(stat = "count", position = "fill", color = "black") +
   labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
   scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
   xlab("smoking status") +
