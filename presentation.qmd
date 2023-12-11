@@ -91,45 +91,33 @@ Approach
     In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
 :::
 
-## Question 2: {.smaller}
+## Question 2: How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke? {.smaller}
 
-```         
-How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke?
-```
+::: incremental
+Approach
 
-The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable. In logistic regression, the coefficients represent the change in the log-odds of the target variable for a one-unit change in the corresponding feature.
+-   The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable.
+:::
 
-The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable. In logistic regression, the coefficients represent the change in the log-odds of the target variable for a one-unit change in the corresponding feature.
+## Here's an interpretation of the feature ranking :
 
-Here's an interpretation of the feature ranking :
-
-1)age_band (Coefficient: 1.187519):
-
-For every one-unit increase in the age_band, the log-odds of the target variable increase by approximately 1.187519. Older age is associated with a higher likelihood of the target variable.
-
-2)avg_glucose_level (Coefficient: 0.880860):
-
-For every one-unit increase in avg_glucose_level, the log-odds of the target variable increase by approximately 0.880860. Higher average glucose levels are associated with a higher likelihood of the target variable.
-
-3)hypertension (Coefficient: 0.551390):
-
-Individuals with hypertension have a log-odds of the target variable approximately 0.551390 higher than those without hypertension. Hypertension is associated with a higher likelihood of the target variable.
-
-4)heart_disease (Coefficient: 0.288187):
-
-Individuals with heart disease have a log-odds of the target variable approximately 0.288187 higher than those without heart disease. Heart disease is associated with a higher likelihood of the target variable.
-
-5)gender (Coefficient: 0.073007):
-
-Being of the male gender is associated with a log-odds of the target variable approximately 0.073007 higher than being of the female gender. Gender has a positive but relatively small association with the likelihood of the target variable.
-
-6)smoking_status (Coefficient: -0.053451):
-
-For every one-unit increase in smoking_status, the log-odds of the target variable decrease by approximately 0.053451. Smoking is associated with a lower likelihood of the target variable.
-
-7)bmi (Coefficient: -0.211967):
-
-For every one-unit increase in BMI, the log-odds of the target variable decrease by approximately 0.211967. Higher BMI is associated with a lower likelihood of the target variable.
++----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 1)age_band (Coefficient: 1.187519):          | For every one-unit increase in the age_band, the log-odds of the target variable increase by approximately 1.187519. Older age is associated with a higher likelihood of the target variable.                                                   |
+|                                              |                                                                                                                                                                                                                                                 |
+| 2)avg_glucose_level (Coefficient: 0.880860): | For every one-unit increase in avg_glucose_level, the log-odds of the target variable increase by approximately 0.880860. Higher average glucose levels are associated with a higher likelihood of the target variable.                         |
+|                                              |                                                                                                                                                                                                                                                 |
+| 3)hypertension (Coefficient: 0.551390):      | Individuals with hypertension have a log-odds of the target variable approximately 0.551390 higher than those without hypertension. Hypertension is associated with a higher likelihood of the target variable.                                 |
+|                                              |                                                                                                                                                                                                                                                 |
+| 4)heart_disease (Coefficient: 0.288187):     | Individuals with heart disease have a log-odds of the target variable approximately 0.288187 higher than those without heart disease. Heart disease is associated with a higher likelihood of the target variable.                              |
+|                                              |                                                                                                                                                                                                                                                 |
+| 5)gender (Coefficient: 0.073007):            | Being of the male gender is associated with a log-odds of the target variable approximately 0.073007 higher than being of the female gender. Gender has a positive but relatively small association with the likelihood of the target variable. |
+|                                              |                                                                                                                                                                                                                                                 |
+| 6)smoking_status (Coefficient: -0.053451):   | For every one-unit increase in smoking_status, the log-odds of the target variable decrease by approximately 0.053451. Smoking is associated with a lower likelihood of the target variable.                                                    |
+|                                              |                                                                                                                                                                                                                                                 |
+| 7)bmi (Coefficient: -0.211967):              | For every one-unit increase in BMI, the log-odds of the target variable decrease by approximately 0.211967. Higher BMI is associated with a lower likelihood of the target variable.                                                            |
++----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                              |                                                                                                                                                                                                                                                 |
++----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 # Wrap up
 
