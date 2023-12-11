@@ -83,10 +83,11 @@ Lets take a look at disease correlation with stroke
 ```{r}
 ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
   geom_bar(position = "fill", color = "black") +
-  facet_grid(. ~ heart_disease) +
+  facet_grid(. ~ heart_disease, labeller = labeller(heart_disease = c("0" = "Without Heart Disease", "1" = "With Heart Disease"))) +
   labs(title = "Distribution of Stroke Status by hypertension and heart disease",
        x = "hypertension", y = "Percentage Count", fill = "Stroke") +
   scale_fill_manual(values = c("lightblue",  "red"))
+
 ```
 
 There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance
