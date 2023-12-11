@@ -1,9 +1,7 @@
 ---
 title: "Seeing the Unseen"
-subtitle: "Predicting Brain Stroke"
-author: "Abhishek Deore,Daniel Shevelev, Kashyap Nadendla,Shreya Kolte, Ram Dheeraj Kamarajugadda"
 title-slide-attributes:
-  data-background-image: images/brain_stroke_background.jpeg
+  data-background-image: images/brain_mri.png
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -34,6 +32,20 @@ knitr::opts_chunk$set(
 
 # Seeing the Unseen: Predicting Brain Stroke
 
+::: incremental
+Authors:
+
+-   Abhishek Deore
+
+-   Daniel Shevelev
+
+-   Kashyap Nadendla
+
+-   Shreya Kolte
+
+-   Ram Dheeraj Kamarajugadda
+:::
+
 ## Dataset Description
 
 ::: {.incremental width="40%"}
@@ -48,7 +60,7 @@ knitr::opts_chunk$set(
 ## Smoking Status and Age relation
 
 ::: {.incremental width="30%"}
-![](images/stroke_smoking.png){fig-align="right" width="616"}
+![](images/stroke_smoking.png){fig-align="center" width="3288"}
 :::
 
 ## Age vs Glucose
@@ -91,6 +103,18 @@ Approach
     In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
 :::
 
+## Model Accuracy Results
+
+![](images/model_results.png)
+
+## Selected Model: 
+
+### Logistic Regression
+
+-   Accuracy - 95%
+
+![](images/logistic_reg.png)
+
 ## Question 2: How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke? {.smaller}
 
 ::: incremental
@@ -99,23 +123,33 @@ Approach
 -   The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable.
 :::
 
+## Feature ranking :
+
+| Feature           | Coefficient |
+|-------------------|-------------|
+| age_band          | 1.187519    |
+| avg_glucose_level | 0.880860    |
+| hypertension      | 0.551390    |
+| heart_diesease    | 0.288187    |
+| gender            | 0.073007    |
+| smoking_status    | -0.053451   |
+| bmi               | -0.211967   |
+
 ## Here's an interpretation of the feature ranking :
 
-1)age_band (Coefficient: 1.187519):
+::: incremental
+-   Age is a big factor in stroke and has a positive coefficient above 1.
 
-2)avg_glucose_level (Coefficient: 0.880860):
+-   Average glucose level is a significant value with
 
-3)hypertension (Coefficient: 0.551390):
+-   Hypertension and heart disease are at 0.55 and 0.28 respectively. I assumed that heart disease would have a more significant coefficient value.
+:::
 
-4)heart_disease (Coefficient: 0.288187):
+## Challenges faced
 
-5)gender (Coefficient: 0.073007):
-
-6)smoking_status (Coefficient: -0.053451):
-
-7)bmi (Coefficient: -0.211967):
-
-# Wrap up
+::: incremental
+-   
+:::
 
 ## Feeling adventurous??
 
