@@ -60,7 +60,7 @@ Random Forests, an ensemble method, consist of multiple decision trees. They con
 
 ## Code
 
-```{python}
+```{r}
 
 ```
 
