@@ -84,23 +84,13 @@ Approach
 ::: nonincremental
 -   **Logistic Regression**
 
-    In stroke prediction, logistic regression is employed to estimate the likelihood of stroke occurrence based on given features, contributing to the understanding of the relationship between various factors and stroke risk.
-
 -   **K-Nearest Neighbors (KNN)**
-
-    KNN is employed to identify patterns by assessing the similarity of instances, contributing to the assessment of stroke risk based on feature patterns.
 
 -   **Naive Bayes**
 
-    Naive Bayes is a classification algorithm that models the probability of stroke occurrence based on given features, assuming a Gaussian distribution for continuous features and feature independence.
-
 -   **Decision Tree**
 
-    Decision trees are valuable for identifying key features and their interactions that contribute to predicting the likelihood of strokes.
-
 -   **Random Forest**
-
-    In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
 :::
 
 ## Model Accuracy Results
