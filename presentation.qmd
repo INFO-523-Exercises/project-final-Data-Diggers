@@ -1,9 +1,9 @@
 ---
 title: "Seeing the Unseen"
 subtitle: "Predicting Brain Stroke"
-author: "Author names"
+author: "Abhishek Deore,Daniel Shevelev, Kashyap Nadendla,Shreya Kolte, Ram Dheeraj Kamarajugadda"
 title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-image: images/brain_stroke_background.jpeg
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -59,20 +59,37 @@ knitr::opts_chunk$set(
 
 ![](images/disease_stroke_plot.png){fig-align="center" width="616"}
 
-## Question 1 :
+## Question 1 : How accurate are various classification models for detecting a stroke in a patient?
 
-```{python}
+::: incremental
+Approach
 
-
-
-```
-
-## Models
-
-::: columns
+-   In the initial phase of our brain stroke prediction project, we conducted a comprehensive examination of the dataset. The **brain.shape** and **brain.info()** checks ensured the dataset's integrity, revealing its dimensions and basic information.
 :::
 
-## Images
+## Classification models used:
+
+::: nonincremental
+-   **Logistic Regression**
+
+    In stroke prediction, logistic regression is employed to estimate the likelihood of stroke occurrence based on given features, contributing to the understanding of the relationship between various factors and stroke risk.
+
+-   **K-Nearest Neighbors (KNN)**
+
+    KNN is employed to identify patterns by assessing the similarity of instances, contributing to the assessment of stroke risk based on feature patterns.
+
+-   **Naive Bayes**
+
+    Naive Bayes is a classification algorithm that models the probability of stroke occurrence based on given features, assuming a Gaussian distribution for continuous features and feature independence.
+
+-   **Decision Tree**
+
+    Decision trees are valuable for identifying key features and their interactions that contribute to predicting the likelihood of strokes.
+
+-   **Random Forest**
+
+    In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
+:::
 
 ![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
 
