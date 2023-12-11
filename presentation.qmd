@@ -1,13 +1,7 @@
 ---
-title: "Brain Stroke Detection "
-subtitle: "INFO 523 - Fall 2023 - Project Final"
-author: "Team Data Diggers:
-Ram Dheeraj Kamarajugadda
-Shreya Kolte
-Kashyap Nadendla
-Abhishek Deore
-Daniel Shevelev
-"
+title: "Seeing the Unseen"
+subtitle: "Predicting Brain Stroke"
+author: "Author names"
 title-slide-attributes:
   data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
   data-background-size: stretch
@@ -21,26 +15,8 @@ editor: visual
 execute:
   echo: false
 ---
+
 ```{r}
-install.packages("reticulate")
-library(reticulate)
-```
-
-
-```{python}
-import numpy as np 
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-plt.style.use('fivethirtyeight')
-import warnings
-warnings.filterwarnings('ignore')
-%matplotlib inline
-
-data=pd.read_csv('brain_stroke.csv')
-print('testing')
-
-```
 #| label: setup
 #| include: false
 
@@ -56,172 +32,37 @@ knitr::opts_chunk$set(
   )
 ```
 
-```{r}
-#| label: load-data
-#| include: false
-# Load data here
-data(mtcars)
-mtcars$speed <- mtcars$hp / mtcars$wt
+# Seeing the Unseen: Predicting Brain Stroke
 
-data("penguins")
-```
+## Dataset Description
 
-Objective: The central objective of this project is to evaluate the accuracy of various prediction models, shedding light on their effectiveness in early stroke detection, which could significantly impact patient outcomes and healthcare resource allocation.
+::: {.incremental width="40%"}
+-   The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets and consists of 4982 rows and 11 columns.
+-   Gender, age, hypertension, average glucose level, smoking status, stroke
+:::
 
-## Dataset
+## Visualizations
 
-```{r}
+![](images/stroke_gender.png){fig-align="center" width="616"}
 
-brain_stroke <- read.csv(here("data","brain_stroke.csv"))
-```
+## Smoking Status and Age relation
 
-The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets and consists of 4982 rows and 11 columns. This dataset provides a substantial pool of patient records and attributes for analysis. Our motivation for this project is rooted in the pressing need to enhance early stroke detection and risk assessment, two critical factors directly impacting patient care and stroke prevention strategies.
+::: {.incremental width="30%"}
+![](images/stroke_smoking.png){fig-align="right" width="616"}
+:::
 
-## Why we chose this dataset?
-
-We selected the "Brain Stroke Dataset" for its comprehensiveness and relevance to stroke prediction. The 11 columns encompass essential patient information, including demographic details, medical history, lifestyle factors, and the presence or absence of stroke. By harnessing the insights from this dataset, we aim to create a predictive model to accurately classify whether an individual is at a high risk of brain stroke, ultimately enabling timely interventions and tailored preventive measures.
-
-## Problem Statements
-
-1\) How accurate are various prediction models for detecting a stroke in a patient?
-
-2\) How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke?
+## Question 1 :
 
 ```{python}
-f,ax=plt.subplots(1,2,figsize=(10,7))
-data[['gender','stroke']].groupby(['gender']).mean().plot.bar(ax=ax[0])
-ax[0].set_title('Had a stroke vs Gender')
-sns.countplot(x='gender',hue='stroke',data=data,ax=ax[1])
-ax[1].set_title('Gender:Had a Stroke vs Not had a Stroke')
-plt.show()
-```
-Left subplot shows the proportion of individuals who had a stroke for each gender. The y-axis represents the mean value of 'stroke,' indicating the likelihood of having a stroke. Right subplot provides a count of individuals for each gender, further broken down by whether they had a stroke (1) or not (0). The different colors in the bars represent the distribution of stroke occurrences within each gender
 
-```{python}
-f,ax=plt.subplots(1,2,figsize=(18,8))
-data['smoking_status'].value_counts().plot.bar(color=['#CD7F32','#FFDF00','#D3D3D3'],ax=ax[0])
-ax[0].set_title('Number Of People had a stroke by smoking status')
-ax[0].set_ylabel('Count')
-sns.countplot(x='smoking_status',hue='stroke',data=data,ax=ax[1])
-ax[1].set_title('Smoking Status:Had a stroke vs Never had a stroke')
-plt.show()
-```
-Left subplot provides a visual representation of the number of people who had a stroke for each category of 'smoking_status'. Different colors represent different categories of smoking status.
-Right subplot provides a count of individuals for each category of 'smoking_status', further broken down by whether they had a stroke (1) or not (0). It visually compares the distribution of stroke occurrences across different smoking statuses.
 
-```{python}
-f,ax=plt.subplots(1,2,figsize=(18,8))
-sns.violinplot(x="smoking_status",y="age", hue="stroke", data=data,split=True,ax=ax[0])
-ax[0].set_title('Smoking Status and Age vs Had a stroke')
-ax[0].set_yticks(range(0,110,10))
-sns.violinplot(x="gender",y="age", hue="stroke", data=data,split=True,ax=ax[1])
-ax[1].set_title('Gender and Age vs Had a stroke')
-ax[1].set_yticks(range(0,110,10))
-plt.show()
+
 ```
 
-Left subplot helps visualize the distribution of ages for different smoking statuses, split by whether individuals had a stroke or not. Right subplot visualizes the distribution of ages for different genders, split by whether individuals had a stroke or not.
-
-```{python}
-sns.heatmap(data.corr(),annot=True,cmap='RdYlGn',linewidths=0.2) #data.corr()-->correlation matrix
-fig=plt.gcf()
-fig.set_size_inches(10,8)
-plt.show()
-```
-Color Intensity: The color intensity in the heatmap represents the strength of correlation. Darker shades indicate stronger correlations, while lighter shades indicate weaker correlations. Annotations: The numerical values within the cells are the correlation coefficients. These values range from -1 to 1. Positive Correlation: Positive values (closer to 1) indicate a positive linear relationship between the variables. An increase in one variable is associated with an increase in the other. Negative Correlation: Negative values (closer to -1) indicate a negative linear relationship between the variables. An increase in one variable is associated with a decrease in the other. No Correlation: Values close to 0 suggest little or no linear relationship between the variables.
-This heatmap is useful for identifying potential patterns and relationships between different numeric variables in the dataset.
-
-```{python}
-new_models_dataframe2['CV Mean'].plot.barh(width=0.8)
-plt.title('Average CV Mean Accuracy')
-fig=plt.gcf()
-fig.set_size_inches(8,5)
-plt.show()
-```
-The horizontal bar chart provides a visual comparison of the average cross-validated mean accuracy for each machine learning model.
-Models with higher bars have higher average accuracies, indicating better performance on average across multiple cross-validation folds.
-
-# Using Quarto for presentations
-
-## Quarto
-
--   The presentation is created using the Quarto CLI
-
--   `##` sets the start of a new slide
-
-## Layouts
-
-You can use plain text
+## Models
 
 ::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
 :::
-
-::: {.column width="60%"}
-or in two columns
-:::
-:::
-
-[^1]: And add footnotes
-
--   like
-
--   this
-
-## Code
-
-```{r, echo=FALSE}
-model <- lm(mpg ~ speed, data = mtcars) 
-
-model |> tidy()
-
-model |> glance()
-
-```
-
-## Plots
-
-```{r}
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-```
-
-## Plot and text
-
-::: columns
-::: {.column width="50%"}
--   Some text
-
--   goes here
-:::
-
-::: {.column width="50%"}
-```{r, warning=FALSE, fig.width=5.5}
-penguins |>
-  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot(linewidth = 0.75,
-               outlier.size = 2.5) +
-  theme_minimal(base_size = 15) +
-  theme(legend.key.size = unit(0.8, "cm"))
-```
-:::
-:::
-
-# A new section...
-
-## Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-```{r}
-penguins |> 
-  head() |>
-  kableExtra::kable() |>
-  kableExtra::kable_styling()
-```
 
 ## Images
 

@@ -29,8 +29,6 @@ Our motivation stems from the realization that proactive measures in stroke pred
 
 -   In the initial phase of our brain stroke prediction project, we conducted comprehensive examination of the dataset. The **brain.shape** and **brain.info()** checks ensured the dataset's integrity, revealing its dimensions and basic information. Notably, no missing values were found (**brain.isnull().sum()**). 
 
--   Handling "Unknown" values in the smoking status column involved the removal of 1,500 rows, ensuring data accuracy. 
-
 -   Visualizations were created to delve into correlations, including work types and smoking statuses, and the likelihood of heart disease based on gender, age, and work type.
 
 -   We develoepd classification models using Logistic Regression, K-Nearest Neighbors, Random Forest and Decision Tree and picked the best model in based on accuracy value.
@@ -45,7 +43,7 @@ Despite its name, Logistic Regression is a binary classification algorithm. It m
 
 **K-Nearest Neighbors (KNN)**
 
-KNN is a classification algorithm that classifies a data point by considering the class labels of its k-nearest neighbors in the feature space. In stroke prediction, KNN is employed to identify patterns by assessing the similarity of instances, contributing to the assessment of stroke risk based on feature patterns.
+KNN is a classification algorithm that classifies a data point by considering the class labels of its K-nearest neighbors in the feature space. In stroke prediction, KNN is employed to identify patterns by assessing the similarity of instances, contributing to the assessment of stroke risk based on feature patterns.
 
 **Naive Bayes**
 
@@ -58,3 +56,5 @@ Decision trees are classification algorithms that recursively split the dataset 
 **Random Forest**
 
 Random Forests, an ensemble method, consist of multiple decision trees. They construct these trees during training and output the mode of classes or mean prediction of individual trees. In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
+
+## Code
