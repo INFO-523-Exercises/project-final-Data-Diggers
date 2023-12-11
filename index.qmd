@@ -11,8 +11,9 @@ editor: visual
 Strokes are a significant public health concern worldwide, and predicting the risk factors associated with strokes can contribute to early intervention and improved patient outcomes. This project aims to implement machine learning models on a data pretaning to stroke occurrences.
 
 ```{r, echo=FALSE}
-# import the data
-brain <- read.csv("data/brain_stroke.csv")
+library(here)
+
+brain_stroke_data = read.csv(here("data","brain_stroke.csv"))
 ```
 
 ## Introduction
@@ -23,7 +24,7 @@ The primary impetus behind this project is the compelling need to revolutionize 
 
 Our motivation stems from the realization that proactive measures in stroke prediction can significantly enhance patient care and facilitate more effective stroke prevention strategies. By delving into the intricacies of patient records and extracting meaningful insights, we aspire to contribute to the growing body of knowledge that aids medical practitioners in making informed decisions.
 
-## Question 1: How accurate are various prediction models for detecting a stroke in a patient?
+## Question 1: How accurate are various classification models for detecting a stroke in a patient?
 
 ## Approach
 
@@ -58,3 +59,48 @@ Decision trees are classification algorithms that recursively split the dataset 
 Random Forests, an ensemble method, consist of multiple decision trees. They construct these trees during training and output the mode of classes or mean prediction of individual trees. In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
 
 ## Code
+
+```{r}
+
+
+```
+
+## Question 2: How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke?
+
+## Approach:
+
+-   The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable. In logistic regression, the coefficients represent the change in the log-odds of the target variable for a one-unit change in the corresponding feature.
+
+-   The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable. In logistic regression, the coefficients represent the change in the log-odds of the target variable for a one-unit change in the corresponding feature.
+
+### Here's an interpretation of the feature ranking :
+
+1\) age_band (Coefficient: 1.187519):
+
+For every one-unit increase in the age_band, the log-odds of the target variable increase by approximately 1.187519. Older age is associated with a higher likelihood of the target variable.
+
+2)avg_glucose_level (Coefficient: 0.880860):
+
+For every one-unit increase in avg_glucose_level, the log-odds of the target variable increase by approximately 0.880860. Higher average glucose levels are associated with a higher likelihood of the target variable.
+
+3)hypertension (Coefficient: 0.551390):
+
+Individuals with hypertension have a log-odds of the target variable approximately 0.551390 higher than those without hypertension. Hypertension is associated with a higher likelihood of the target variable.
+
+4)heart_disease (Coefficient: 0.288187):
+
+Individuals with heart disease have a log-odds of the target variable approximately 0.288187 higher than those without heart disease. Heart disease is associated with a higher likelihood of the target variable.
+
+5)gender (Coefficient: 0.073007):
+
+Being of the male gender is associated with a log-odds of the target variable approximately 0.073007 higher than being of the female gender. Gender has a positive but relatively small association with the likelihood of the target variable.
+
+6)smoking_status (Coefficient: -0.053451):
+
+For every one-unit increase in smoking_status, the log-odds of the target variable decrease by approximately 0.053451. Smoking is associated with a lower likelihood of the target variable.
+
+7)bmi (Coefficient: -0.211967):
+
+For every one-unit increase in BMI, the log-odds of the target variable decrease by approximately 0.211967. Higher BMI is associated with a lower likelihood of the target variable.
+
+\

@@ -1,9 +1,7 @@
 ---
 title: "Seeing the Unseen"
-subtitle: "Predicting Brain Stroke"
-author: "Author names"
 title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-image: images/brain_mri.png
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -34,6 +32,20 @@ knitr::opts_chunk$set(
 
 # Seeing the Unseen: Predicting Brain Stroke
 
+::: incremental
+Authors:
+
+-   Abhishek Deore
+
+-   Daniel Shevelev
+
+-   Kashyap Nadendla
+
+-   Shreya Kolte
+
+-   Ram Dheeraj Kamarajugadda
+:::
+
 ## Dataset Description
 
 ::: {.incremental width="40%"}
@@ -48,7 +60,7 @@ knitr::opts_chunk$set(
 ## Smoking Status and Age relation
 
 ::: {.incremental width="30%"}
-![](images/stroke_smoking.png){fig-align="right" width="616"}
+![](images/stroke_smoking.png){fig-align="center" width="3288"}
 :::
 
 ## Age vs Glucose
@@ -59,45 +71,79 @@ knitr::opts_chunk$set(
 
 ![](images/disease_stroke_plot.png){fig-align="center" width="616"}
 
-## Question 1 :
+## Question 1 : How accurate are various classification models for detecting a stroke in a patient?
 
-```{python}
+::: incremental
+Approach
 
-
-
-```
-
-## Models
-
-::: columns
+-   In the initial phase of our brain stroke prediction project, we conducted a comprehensive examination of the dataset. The **brain.shape** and **brain.info()** checks ensured the dataset's integrity, revealing its dimensions and basic information.
 :::
 
-## Images
+## Classification models used:
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+::: nonincremental
+-   **Logistic Regression**
 
-## Math Expressions {.smaller}
+-   **K-Nearest Neighbors (KNN)**
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+-   **Naive Bayes**
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+-   **Decision Tree**
+
+-   **Random Forest**
+:::
+
+## Model Accuracy Results
+
+![](images/model_results.png)
+
+## Selected Model: 
+
+### Logistic Regression
+
+-   Accuracy - 95%
+
+![](images/logistic_reg.png)
+
+## Question 2: How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke? {.smaller}
+
+::: incremental
+Approach
+
+-   The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable.
+:::
+
+## Feature ranking :
+
+| Feature           | Coefficient |
+|-------------------|-------------|
+| age_band          | 1.187519    |
+| avg_glucose_level | 0.880860    |
+| hypertension      | 0.551390    |
+| heart_diesease    | 0.288187    |
+| gender            | 0.073007    |
+| smoking_status    | -0.053451   |
+| bmi               | -0.211967   |
+
+## Here's an interpretation of the feature ranking :
+
+::: incremental
+-   Age is a big factor in stroke and has a positive coefficient above 1.
+
+-   Average glucose level is a significant value with
+
+-   Hypertension and heart disease are at 0.55 and 0.28 respectively. I assumed that heart disease would have a more significant coefficient value.
+:::
+
+## Challenges faced
+
+::: incremental
+-   
+:::
+
+## THANK YOU
+
+```{r,echo=FALSE}
+
+knitr::include_graphics("images/brain_thankyou.gif")
 ```
-
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
-
-Limitations:
-
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-2.  There should not be spaces after the opening `$` or before the closing `$`.
-
-# Wrap up
-
-## Feeling adventurous?
-
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
-
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
