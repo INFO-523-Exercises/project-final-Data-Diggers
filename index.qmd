@@ -10,9 +10,16 @@ editor: visual
 
 Strokes are a significant public health concern worldwide, and predicting the risk factors associated with strokes can contribute to early intervention and improved patient outcomes. This project aims to implement machine learning models on a data pretaning to stroke occurrences.
 
-```{r, echo=FALSE}
+```{python, echo=FALSE}
+
+#setup
+import numpy as np 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 # import the data
-brain <- read.csv("data/brain_stroke.csv")
+data=pd.read_csv('data/brain_stroke.csv')
 ```
 
 ## Introduction
@@ -23,7 +30,7 @@ The primary impetus behind this project is the compelling need to revolutionize 
 
 Our motivation stems from the realization that proactive measures in stroke prediction can significantly enhance patient care and facilitate more effective stroke prevention strategies. By delving into the intricacies of patient records and extracting meaningful insights, we aspire to contribute to the growing body of knowledge that aids medical practitioners in making informed decisions.
 
-## Question 1: How accurate are various prediction models for detecting a stroke in a patient?
+## Question 1: How accurate are various classification models for detecting a stroke in a patient?
 
 ## Approach
 
@@ -58,3 +65,11 @@ Decision trees are classification algorithms that recursively split the dataset 
 Random Forests, an ensemble method, consist of multiple decision trees. They construct these trees during training and output the mode of classes or mean prediction of individual trees. In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
 
 ## Code
+
+```{python}
+
+```
+
+## Question 2: 
+
+\
