@@ -61,7 +61,7 @@ Authors:
 
 -   Age vs average glucose level
 
--   Disease and strokes
+-   Heart disease and strokes
 
 ## Gender
 
@@ -77,7 +77,7 @@ Authors:
 
 ![](images/age_glucose_stoke_plot.png){fig-align="center" width="616"}
 
-## Disease and Strokes
+## Heart Disease and Strokes
 
 ![](images/disease_stroke_plot.png){fig-align="center" width="616"}
 
