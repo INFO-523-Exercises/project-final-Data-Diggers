@@ -24,7 +24,7 @@ execute:
 ```{r}
 install.packages("reticulate")
 library(reticulate)
-```{r}
+```
 
 
 ```{python}
