@@ -63,6 +63,8 @@ Authors:
 
 -   Heart disease and strokes
 
+-   Correlation Heat Map
+
 ## Gender
 
 ![](images/stroke_gender.png){fig-align="center" width="616"}
@@ -80,6 +82,12 @@ Authors:
 ## Heart Disease and Strokes
 
 ![](images/disease_stroke_plot.png){fig-align="center" width="616"}
+
+## Correlation Heat Map
+
+-   This heatmap is useful for identifying potential patterns and relationships between different numeric variables in the dataset.
+
+![](images/Heatmap.png){fig-align="center"}
 
 ## Question 1 : How accurate are various classification models for detecting a stroke in a patient?
 
@@ -148,10 +156,9 @@ Approach
 ## Challenges faced
 
 ::: incremental
-
 -   Class imbalance where one class (e.g stroke) significantly outnumbers the other, chances of leading to biased models
 
--   Cross Validation and finding accuracy
+-   Choosing an appropriate model that balances complexity and interpretability
 :::
 
 ## THANK YOU
