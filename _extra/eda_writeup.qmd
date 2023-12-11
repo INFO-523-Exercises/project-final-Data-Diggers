@@ -1,0 +1,90 @@
+---
+title: "eda_writeup"
+author: "Data Diggers"
+format: html
+editor: visual
+---
+
+```{r}
+if (!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(tidymodels,
+               tidyverse,
+               ranger,
+               gridExtra,
+               dplyr,
+               corrplot,
+               MASS)
+
+
+```
+
+## Analysis and Visualizations
+
+![](../images/Heatmap.png)
+
+Heatmap colors show correlation strength: green shades mean strong, red shades mean weak. Cell numbers are correlation coefficients (0 to 1). Positive Correlation (close to 1) means variables increase together. No Correlation (close to 0) means little or no linear relationship.
+
+![](../images/stroke_smoking.png){fig-align="center" width="3288"}
+
+Left plot Interpretation: This subplot helps visualize the distribution of ages for different smoking statuses, split by whether individuals had a stroke or not.
+
+Right plot Interpretation: This subplot visualizes the distribution of ages for different genders, split by whether individuals had a stroke or not.
+
+```{r, echo=FALSE}
+#| label: init data
+brain <- read.csv("../data/brain_stroke.csv")
+```
+
+```{r, echo=FALSE}
+#| label: packages
+if (!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(flexdashboard,
+              ggplot2,
+               corrplot,
+              dplyr)
+```
+
+```{r, echo=FALSE}
+#| label: modify data for use
+# our data need to be numeric so lets temporarily remove some columns that we are not that curious about 
+# lets change gender to 1 being male and 0 being female. 
+# We will also change smoking to be 0 for never smoking and 1 to smoking, unknown smoking will be counted as not smoking
+numeric_brain <- brain %>% dplyr::select(-Residence_type, -work_type, -ever_married) %>%
+  mutate(gender = if_else(gender == "Male", 1, 0)) %>%
+  mutate(smoking_status = if_else(smoking_status == "never smoked", 0, 1))
+
+```
+
+
+```{r, echo=FALSE}
+#| label: scatter plot age, glucose and stroke
+# create scatter plot with 3 variable 1 being a factor and 2 being numeric
+ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age") +
+  guides(alpha = "none")
+```
+
+A combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
+
+```{r, echo = FALSE}
+#| label: bar plot with diesease and strokes
+# create stacked bar count percentage plot with 3 variable being factors
+ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease, labeller = labeller(heart_disease = c("0" = "Without Heart Disease", "1" = "With Heart Disease"))) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
+
+```
+
+There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance.
