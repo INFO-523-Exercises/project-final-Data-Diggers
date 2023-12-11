@@ -51,6 +51,7 @@ Authors:
 ::: {.incremental width="40%"}
 -   The [Brain Stroke Dataset](https://www.kaggle.com/datasets/jillanisofttech/brain-stroke-dataset) is taken from Kaggle datasets and consists of 4982 rows and 11 columns.
 -   Gender, age, hypertension, average glucose level, smoking status, stroke, ever married,work type, residence type
+-   No null values were to be found in the dataset
 :::
 
 ## EDA Plots
