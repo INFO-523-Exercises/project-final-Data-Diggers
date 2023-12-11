@@ -15,77 +15,46 @@ Strokes are a significant public health concern worldwide, and predicting the ri
 brain <- read.csv("data/brain_stroke.csv")
 ```
 
-## Dataset Modifications
+## Introduction
 
-To work well with the data we made some changes
+The emergence of advanced healthcare datasets has paved the way for groundbreaking research and development in the realm of medical science. In our pursuit of leveraging data-driven insights to address critical health issues, we have undertaken a comprehensive analysis of the Brain Stroke Dataset sourced from Kaggle. This dataset, offers a rich repository of patient records and associated attributes, presenting a unique opportunity for in-depth examination and exploration.
 
--   remove columns that we are not that curious about such as married and work type
+The primary impetus behind this project is the compelling need to revolutionize early stroke detection and refine risk assessment methodologies. Brain strokes, with their potentially devastating consequences, underscore the significance of timely intervention. By harnessing the power of data analytics, we aim to unravel patterns and correlations within the dataset that can contribute to the development of predictive models. These models, in turn, hold the potential to augment healthcare professionals' ability to identify individuals at risk of strokes at an early stage.
 
--   change gender to 1 being male and 0 being female for correlation analysis
+Our motivation stems from the realization that proactive measures in stroke prediction can significantly enhance patient care and facilitate more effective stroke prevention strategies. By delving into the intricacies of patient records and extracting meaningful insights, we aspire to contribute to the growing body of knowledge that aids medical practitioners in making informed decisions.
 
--   change smoking to be 0 for never smoking and 1 to smoking, unknown smoking will be counted as not smoking
+## Question 1: How accurate are various prediction models for detecting a stroke in a patient?
 
-## Data Analysis with Visualizations
+## Approach
 
-we can create our correlation plot with all our variables to determine which variable have the most effect on strokes
+-   In the initial phase of our brain stroke prediction project, we conducted comprehensive examination of the dataset. The **brain.shape** and **brain.info()** checks ensured the dataset's integrity, revealing its dimensions and basic information. Notably, no missing values were found (**brain.isnull().sum()**). 
 
-```{r, echo=FALSE}
+-   Handling "Unknown" values in the smoking status column involved the removal of 1,500 rows, ensuring data accuracy. 
 
-if (!require(pacman))
-  install.packages("pacman")
+-   Visualizations were created to delve into correlations, including work types and smoking statuses, and the likelihood of heart disease based on gender, age, and work type.
 
-pacman::p_load(flexdashboard,
-              ggplot2,
-               corrplot,
-              dplyr)
+-   We develoepd classification models using Logistic Regression, K-Nearest Neighbors, Random Forest and Decision Tree and picked the best model in based on accuracy value.
 
-numeric_brain <- brain %>% select(-Residence_type, -work_type, -ever_married) %>%
-  mutate(gender = if_else(gender == "Male", 1, 0)) %>%
-  mutate(smoking_status = if_else(smoking_status == "never smoked", 0, 1))
+## Mining Method
 
+In this project, we have used the following four classification models -
 
-numeric_data <- numeric_brain[, sapply(numeric_brain, is.numeric)]
-correlation_matrix <- cor(numeric_data)
+**Logistic Regression**
 
-corrplot(correlation_matrix, method = "color")
-```
+Despite its name, Logistic Regression is a binary classification algorithm. It models the probability of a binary outcome using a logistic function. In stroke prediction, logistic regression is employed to estimate the likelihood of stroke occurrence based on given features, contributing to the understanding of the relationship between various factors and stroke risk.
 
-We can see that age has the highest correlation with strokes but no single variable has a distinct correlation with stroke.
+**K-Nearest Neighbors (KNN)**
 
-Age will be an important factor with our analysis so lets looks at it further
+KNN is a classification algorithm that classifies a data point by considering the class labels of its k-nearest neighbors in the feature space. In stroke prediction, KNN is employed to identify patterns by assessing the similarity of instances, contributing to the assessment of stroke risk based on feature patterns.
 
-```{r, echo=FALSE}
-ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
-  geom_point() +
-  scale_color_manual(values = c("lightblue", "red"), , name = "stroke") +
-  labs(title = "Age vs. Average Glucose Level") +
-  ylab("Average Glucose Level") +
-  xlab("Age")
-```
+**Naive Bayes**
 
-It seems that a combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
+Naive Bayes is a classification algorithm based on Bayes' theorem, assuming independence between features. In stroke prediction, it models the probability of stroke occurrence based on given features, assuming a Gaussian distribution for continuous features and feature independence.
 
-smoking did not show up as having any correlation with strokes but maybe that's because we combined not smoking and unknown. so lets separate the unknown smoking data from the rest to test.
+**Decision Tree**
 
-```{r, echo=FALSE}
-ggplot(brain, aes(x = smoking_status, fill = as.factor(stroke))) +   
-  geom_bar(stat = "count", position = "fill") +   
-  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") + 
-  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") + 
-  xlab("smoking status") +   
-  ylab("percentage count")
-```
+Decision trees are classification algorithms that recursively split the dataset into subsets based on significant features. They form a tree-like structure where each branch represents a decision based on specific features. In stroke prediction, decision trees are valuable for identifying key features and their interactions that contribute to predicting the likelihood of strokes.
 
-Interestingly we see that never smoked and smoke have the same percentage for having a stroke, so again individually smoking will not play a huge role in deciding strokes or not, but maybe with other variable that could change.
+**Random Forest**
 
-Lets take a look at disease correlation with stroke
-
-```{r, echo=FALSE}
-ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) + 
-  geom_bar(position = "fill", color = "black") + 
-  facet_grid(. ~ heart_disease) + 
-  labs(title = "Distribution of Stroke Status by hypertension and heart disease",        x = "hypertension", y = "Percentage Count", fill = "Stroke") +  
-  scale_fill_manual(values = c("lightblue",  "red"))
-```
-
-There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance.
+Random Forests, an ensemble method, consist of multiple decision trees. They construct these trees during training and output the mode of classes or mean prediction of individual trees. In stroke prediction, Random Forests are employed to capture complex relationships within the dataset by aggregating predictions from multiple decision trees, providing a robust approach to assess stroke risk.
