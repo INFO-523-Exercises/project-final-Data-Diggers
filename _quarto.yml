@@ -17,7 +17,7 @@ website:
       - text: About
         href: about.qmd
       - text: Age Dashboard
-        href: agedashboard.qmd
+        href: https://shahmaty.quarto.pub/exploring-data/
 
 format:
   html:
