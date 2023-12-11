@@ -101,6 +101,20 @@ Approach
 
 ## Here's an interpretation of the feature ranking :
 
+1)age_band (Coefficient: 1.187519):
+
+2)avg_glucose_level (Coefficient: 0.880860):
+
+3)hypertension (Coefficient: 0.551390):
+
+4)heart_disease (Coefficient: 0.288187):
+
+5)gender (Coefficient: 0.073007):
+
+6)smoking_status (Coefficient: -0.053451):
+
+7)bmi (Coefficient: -0.211967):
+
 # Wrap up
 
 ## Feeling adventurous??

@@ -62,6 +62,7 @@ Random Forests, an ensemble method, consist of multiple decision trees. They con
 
 ```{r}
 
+
 ```
 
 ## Question 2: 
