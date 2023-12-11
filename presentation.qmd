@@ -51,6 +51,14 @@ knitr::opts_chunk$set(
 ![](images/stroke_smoking.png){fig-align="right" width="616"}
 :::
 
+## Age vs Glucose
+
+![](images/age_glucose_stoke_plot.png){fig-align="center" width="616"}
+
+## Disease and Strokes
+
+![](images/disease_stroke_plot.png){fig-align="center" width="616"}
+
 ## Question 1 :
 
 ```{python}
