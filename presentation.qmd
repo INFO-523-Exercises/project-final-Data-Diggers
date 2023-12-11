@@ -131,15 +131,9 @@ For every one-unit increase in smoking_status, the log-odds of the target variab
 
 For every one-unit increase in BMI, the log-odds of the target variable decrease by approximately 0.211967. Higher BMI is associated with a lower likelihood of the target variable.
 
-Limitations:
-
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-2.  There should not be spaces after the opening `$` or before the closing `$`.
-
 # Wrap up
 
-## Feeling adventuroust?
+## Feeling adventurous??
 
 -   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
 
