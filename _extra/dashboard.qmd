@@ -45,7 +45,7 @@ numeric_brain <- brain %>%
 numeric_data <- numeric_brain[, sapply(numeric_brain, is.numeric)]
 correlation_matrix <- cor(numeric_data)
 
-corplot <- corrplot(correlation_matrix, method = "color")
+#corplot <- corrplot(correlation_matrix, method = "color")
 ```
 
 ```{r}
@@ -78,6 +78,48 @@ dis_plot = ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
        x = "hypertension", y = "Percentage Count", fill = "Stroke") +
   scale_fill_manual(values = c("lightblue",  "red"))
 ```
+
+
+```{r}
+numeric_over40_brain <- numeric_brain %>% filter(age > 40)
+   
+numeric_data <- numeric_over40_brain[, sapply(numeric_over40_brain, is.numeric)]
+correlation_matrix <- cor(numeric_data)
+
+#corplot <- corrplot(correlation_matrix, method = "color")
+```
+
+```{r}
+age_glu_plot_40 = ggplot(numeric_over40_brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
+  geom_point(aes(alpha = factor(stroke)), size = 2) +
+  scale_color_manual(values = c("lightblue", "red"), name = "stroke", labels = c("no", "yes")) +
+  scale_alpha_manual(values = c(.2, 1)) +
+  labs(title = "Age vs. Average Glucose Level") +
+  ylab("Average Glucose Level") +
+  xlab("Age") +
+  guides(alpha = "none")
+```
+
+
+```{r}
+smoke_plot_40 = ggplot(numeric_over40_brain, aes(x = smoking_status, fill = as.factor(stroke))) +
+  geom_bar(stat = "count", position = "fill", color = "black") +
+  labs(title = "Percentage Stacked Bar Plot of Smoking Status and Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"), name = "stroke") +
+  xlab("smoking status") +
+  ylab("percentage count")
+```
+
+
+```{r}
+dis_plot_40 = ggplot(numeric_over40_brain, aes(x = hypertension, fill = as.factor(stroke))) +
+  geom_bar(position = "fill", color = "black") +
+  facet_grid(. ~ heart_disease) +
+  labs(title = "Distribution of Stroke Status by hypertension and heart disease",
+       x = "hypertension", y = "Percentage Count", fill = "Stroke") +
+  scale_fill_manual(values = c("lightblue",  "red"))
+```
+
 
 ```{r}
 # Prettier times and dates
@@ -175,26 +217,20 @@ top_n_table <- top_n |>
 ### Row
 
 ```{r}
-#| component: valuebox
-#| title: Hours since last earthquake
-list(
-  icon = "activity",
-  color = "primary",
-  value = as.numeric(hours_last)
-)
+age_glu_plot
 ```
 
 ### Row
 
 ```{r}
-age_glu_plot
+dis_plot
 ```
 
 ## Column
 
 ```{r}
-#| title: 100 Most Recent Earthquakes
-quake_map
+#| title: Smoking relationship with Strokes
+smoke_plot_40
 ```
 
 # Above 40
@@ -204,34 +240,18 @@ quake_map
 ### Row
 
 ```{r}
-#| component: valuebox
-#| title: Hours since last earthquake
-list(
-  icon = "activity",
-  color = "primary",
-  value = as.numeric(hours_last)
-)
-```
-
-```{r}
-#| component: valuebox
-#| title: Earthquakes in the last 24 hours
-list(
-  icon = "activity",
-  color = "secondary",
-  value = n_24
-)
+age_glu_plot_40
 ```
 
 ### Row
 
 ```{r}
-age_glu_plot
+dis_plot_40
 ```
 
 ## Column
 
 ```{r}
-#| title: 100 Most Recent Earthquakes
-quake_map
+#| title: Smoking relationship with Strokes
+smoke_plot_40
 ```
