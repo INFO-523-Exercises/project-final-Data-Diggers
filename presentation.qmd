@@ -96,7 +96,7 @@ Limitations:
 
 # Wrap up
 
-## Feeling adventurous?
+## Feeling adventurous ! t?
 
 -   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
 
