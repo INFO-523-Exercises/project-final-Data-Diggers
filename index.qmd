@@ -1,28 +1,23 @@
 ---
 title: "Seeing the Unseen"
 subtitle: "Predicting Brain Stroke in a Patient"
-author: "Data Diggers"
+author: "Team Data Diggers"
 format: html
+code-fold: true
 editor: visual
 ---
 
+![](images/walnut_brain.png){fig-align="center" width="239"}
+
 ## Abstract
 
-Strokes are a significant public health concern worldwide, and predicting the risk factors associated with strokes can contribute to early intervention and improved patient outcomes. This project aims to implement machine learning models on a data pretaning to stroke occurrences.
-
-```{r, echo=FALSE}
-library(here)
-
-brain_stroke_data = read.csv(here("data","brain_stroke.csv"))
-```
+Strokes are a significant public health concern worldwide, and predicting the risk factors associated with strokes can contribute to early intervention and improved patient outcomes. This project aims to implement classification models on a data pertaining to stroke occurrences and check which has the highest accuracy. We then want to use the best model to rank the significance of each feature.
 
 ## Introduction
 
 The emergence of advanced healthcare datasets has paved the way for groundbreaking research and development in the realm of medical science. In our pursuit of leveraging data-driven insights to address critical health issues, we have undertaken a comprehensive analysis of the Brain Stroke Dataset sourced from Kaggle. This dataset, offers a rich repository of patient records and associated attributes, presenting a unique opportunity for in-depth examination and exploration.
 
 The primary impetus behind this project is the compelling need to revolutionize early stroke detection and refine risk assessment methodologies. Brain strokes, with their potentially devastating consequences, underscore the significance of timely intervention. By harnessing the power of data analytics, we aim to unravel patterns and correlations within the dataset that can contribute to the development of predictive models. These models, in turn, hold the potential to augment healthcare professionals' ability to identify individuals at risk of strokes at an early stage.
-
-Our motivation stems from the realization that proactive measures in stroke prediction can significantly enhance patient care and facilitate more effective stroke prevention strategies. By delving into the intricacies of patient records and extracting meaningful insights, we aspire to contribute to the growing body of knowledge that aids medical practitioners in making informed decisions.
 
 ## Question 1: How accurate are various classification models for detecting a stroke in a patient?
 
@@ -49,11 +44,7 @@ pacman::p_load(tidymodels,
 
 ```
 
-## Analysis and Visualizations
-
-![](images/Heatmap.png)
-
-Heatmap colors show correlation strength: green shades mean strong, red shades mean weak. Cell numbers are correlation coefficients (0 to 1). Positive Correlation (close to 1) means variables increase together. No Correlation (close to 0) means little or no linear relationship.
+## Exploratory Analysis and Visualizations
 
 ![](images/stroke_smoking.png){fig-align="center" width="3288"}
 
@@ -117,9 +108,13 @@ ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
 
 There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance.
 
+![](images/Heatmap.png)
+
+Heatmap colors show correlation strength: green shades mean strong, red shades mean weak. Cell numbers are correlation coefficients (0 to 1). Positive Correlation (close to 1) means variables increase together. No Correlation (close to 0) means little or no linear relationship.
+
 ## Mining Method
 
-In this project, we have used the following four classification models -
+In this project, we have used the following five classification models -
 
 **Logistic Regression**
 
@@ -143,10 +138,82 @@ Random Forests, an ensemble method, consist of multiple decision trees. They con
 
 ## Code
 
-```{r}
+-   The code splits the dataset into training and testing sets, making it ready for machine learning model training and evaluation. Features and target variables are appropriately separated for both training and testing sets.
+
+-   The Logistic Regression model achieved an accuracy of approximately 95.05% on the test dataset. The accuracy score represents the proportion of correctly predicted instances out of the total instances in the test dataset. This is a high accuracy which indicates that the model performed well in predicting the target variable values on unseen data. The accuracy score is a common metric for classification models, providing a straightforward measure of predictive performance.
+
+```{python, eval=FALSE}
+
+import numpy as np 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+plt.style.use('fivethirtyeight')
+import warnings
+warnings.filterwarnings('ignore')
+%matplotlib inline
+from sklearn.linear_model import LogisticRegression #logistic regression
+from sklearn import svm #support vector Machine
+from sklearn.ensemble import RandomForestClassifier #Random Forest
+from sklearn.neighbors import KNeighborsClassifier #KNN
+from sklearn.naive_bayes import GaussianNB #Naive bayes
+from sklearn.tree import DecisionTreeClassifier #Decision Tree
+from sklearn.model_selection import train_test_split #training and testing data split
+from sklearn import metrics #accuracy measure
+from sklearn.metrics import confusion_matrix #for confusion matrix
 
 
+# Splitting the data into training and testing
+train,test=train_test_split(data,test_size=0.3,random_state=0,stratify=data['stroke'])
+train_X=train[train.columns[:-1]]
+train_Y=train[train.columns[-1:]]
+test_X=test[test.columns[:-1]]
+test_Y=test[test.columns[-1:]]
+X=data[data.columns[:-1]]
+Y=data["stroke"]
+len(train_X), len(train_Y), len(test_X), len(test_Y)
+
+model = LogisticRegression()
+model.fit(train_X,train_Y)
+prediction3=model.predict(test_X)
+print('The accuracy of the Logistic Regression is',metrics.accuracy_score(prediction3,test_Y))
 ```
+
+### K Fold Cross Validation
+
+-   Implemented to check for accuracy of each models. We have selected k = 10.
+
+```{python, eval=FALSE}
+
+from sklearn.model_selection import KFold #for K-fold cross validation
+from sklearn.model_selection import cross_val_score #score evaluation
+from sklearn.model_selection import cross_val_predict #prediction
+kfold = KFold(n_splits=10) # k=10, split the data into 10 equal parts
+cv_mean=[]
+accuracy=[]
+std=[]
+classifiers=['Logistic Regression','KNN','Decision Tree','Naive Bayes','Random Forest']
+models=[LogisticRegression(),KNeighborsClassifier(n_neighbors=9),DecisionTreeClassifier(),GaussianNB(),RandomForestClassifier(n_estimators=100)]
+for i in models:
+    model = i
+    cv_result = cross_val_score(model,X,Y, cv = kfold,scoring = "accuracy")
+    cv_result=cv_result
+    cv_mean.append(cv_result.mean())
+    std.append(cv_result.std())
+    accuracy.append(cv_result)
+new_models_dataframe2=pd.DataFrame({'CV Mean':cv_mean,'Std':std},index=classifiers)       
+new_models_dataframe2
+```
+
+## Results
+
+![](images/model_results.png)
+
+## Selected Model:
+
+-   Logistic Regression has the highest accuracy of 95% from the 5 chosen models.
+
+-   Hence, we have chosen logistic regression as the model to implement for the following question.
 
 ## Question 2: How are certain lifestyle changes ranked on the basis of their importance in reducing the possibility of a stroke?
 
@@ -156,9 +223,29 @@ Random Forests, an ensemble method, consist of multiple decision trees. They con
 
 -   The feature ranking provided by the logistic regression model with their corresponding coefficients gives insights into the impact of each feature on the likelihood of the target variable. In logistic regression, the coefficients represent the change in the log-odds of the target variable for a one-unit change in the corresponding feature.
 
-## Discussion:
+## Code
 
-### Here's an interpretation of the feature ranking :
+```{python, eval=FALSE}
+
+# Get feature coefficients
+feature_coefficients = model.coef_[0]
+
+# Create a DataFrame with feature names and their corresponding coefficients
+feature_coefficient_df = pd.DataFrame({'Feature': X.columns, 'Coefficient': feature_coefficients})
+
+# Sort the DataFrame by coefficients in descending order
+feature_coefficient_df = feature_coefficient_df.sort_values(by='Coefficient', ascending=False)
+
+# Print or display the ranking order
+print("Feature Ranking:")
+
+print(feature_coefficient_df)
+
+```
+
+## Results Discussion:
+
+### An interpretation of the feature ranking :
 
 -   **age_band (Coefficient: 1.187519):**
 
