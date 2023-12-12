@@ -253,7 +253,7 @@ print(feature_coefficient_df)
 
 ## Results Discussion:
 
-### An interpretation of the feature ranking :
+### The feature ranking :
 
 -   **age_band (Coefficient: 1.187519):**
 
