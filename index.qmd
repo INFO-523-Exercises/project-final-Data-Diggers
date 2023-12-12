@@ -46,11 +46,13 @@ pacman::p_load(tidymodels,
 
 ## Exploratory Analysis and Visualizations
 
+### Violin plot -
+
+-   Left plot Interpretation: This subplot helps visualize the distribution of ages for different smoking statuses, split by whether individuals had a stroke or not.
+
+-   Right plot Interpretation: This subplot visualizes the distribution of ages for different genders, split by whether individuals had a stroke or not.
+
 ![](images/stroke_smoking.png){fig-align="center" width="3288"}
-
-Left plot Interpretation: This subplot helps visualize the distribution of ages for different smoking statuses, split by whether individuals had a stroke or not.
-
-Right plot Interpretation: This subplot visualizes the distribution of ages for different genders, split by whether individuals had a stroke or not.
 
 ```{r, echo=FALSE}
 #| label: init data
@@ -79,6 +81,10 @@ numeric_brain <- brain %>% dplyr::select(-Residence_type, -work_type, -ever_marr
 
 ```
 
+### Age vs Average Glucose Level
+
+-   A combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
+
 ```{r, echo=FALSE}
 #| label: scatter plot age, glucose and stroke
 # create scatter plot with 3 variable 1 being a factor and 2 being numeric
@@ -92,7 +98,9 @@ ggplot(brain, aes(x = age, y = avg_glucose_level, color = factor(stroke))) +
   guides(alpha = "none")
 ```
 
-A combination of age and glucose levels plays a big factor into having a stroke or not. As we notice a dense population of strokes in high age plus high glucose levels.
+### Heart disease and hypertension
+
+-   There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance.
 
 ```{r, echo = FALSE}
 #| label: bar plot with diesease and strokes
@@ -106,11 +114,11 @@ ggplot(brain, aes(x = hypertension, fill = as.factor(stroke))) +
 
 ```
 
-There is definitely noticeable correlation here as having more preexisting conditions will increase the chance at having a stroke, while having none conditions significantly lowers the chance.
+### Heat map
+
+-   Heatmap colors show correlation strength: green shades mean strong, red shades mean weak. Cell numbers are correlation coefficients (0 to 1). Positive Correlation (close to 1) means variables increase together. No Correlation (close to 0) means little or no linear relationship.
 
 ![](images/Heatmap.png)
-
-Heatmap colors show correlation strength: green shades mean strong, red shades mean weak. Cell numbers are correlation coefficients (0 to 1). Positive Correlation (close to 1) means variables increase together. No Correlation (close to 0) means little or no linear relationship.
 
 ## Mining Method
 
@@ -142,7 +150,7 @@ Random Forests, an ensemble method, consist of multiple decision trees. They con
 
 -   The Logistic Regression model achieved an accuracy of approximately 95.05% on the test dataset. The accuracy score represents the proportion of correctly predicted instances out of the total instances in the test dataset. This is a high accuracy which indicates that the model performed well in predicting the target variable values on unseen data. The accuracy score is a common metric for classification models, providing a straightforward measure of predictive performance.
 
-```{python, eval=FALSE}
+```{r, eval=FALSE}
 
 import numpy as np 
 import pandas as pd
@@ -183,7 +191,7 @@ print('The accuracy of the Logistic Regression is',metrics.accuracy_score(predic
 
 -   Implemented to check for accuracy of each models. We have selected k = 10.
 
-```{python, eval=FALSE}
+```{r, eval=FALSE}
 
 from sklearn.model_selection import KFold #for K-fold cross validation
 from sklearn.model_selection import cross_val_score #score evaluation
@@ -225,7 +233,7 @@ new_models_dataframe2
 
 ## Code
 
-```{python, eval=FALSE}
+```{r, eval=FALSE}
 
 # Get feature coefficients
 feature_coefficients = model.coef_[0]
